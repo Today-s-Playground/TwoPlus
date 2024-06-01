@@ -1,12 +1,12 @@
 import GlobalStyle from './styles/GlobalStyles';
-import Review from './components/pages/communityPage/Review';
+import ReviewDetail from './components/pages/communityPage/ReviewDetail';
 
 const App = () => {
   return (
     <>
       <GlobalStyle />
       <div>App</div>
-      <Review />
+      <ReviewDetail />
     </>
   );
 };
