@@ -36,8 +36,7 @@ const CommunityMain = () => {
       <StSection>
         <StTitle>
           <StH3>게임 리뷰 게시판</StH3>
-          {/* <Link to="/review">더보기</Link> */}
-          <p>더보기</p>
+          <Link to="/review">더보기</Link>
         </StTitle>
         <StBoxSection>
           {/* 게임 리뷰 게시판 박스 */}
@@ -95,8 +94,7 @@ const CommunityMain = () => {
       <StSection>
         <StTitle>
           <StH3>게임 공략 게시판</StH3>
-          {/* <Link to="/strategy">더보기</Link> */}
-          <p>더보기</p>
+          <Link to="/strategy">더보기</Link>
         </StTitle>
         <StBoxSection>
           {/* 게임 공략 게시판 박스 */}
@@ -146,8 +144,7 @@ const CommunityMain = () => {
       <StSection>
         <StTitle>
           <StH3>게임 질문 게시판</StH3>
-          {/* <Link to="/question">더보기</Link> */}
-          <p>더보기</p>
+          <Link to="/question">더보기</Link>
         </StTitle>
         <StBoxSection>
           {/* 게임 질문 게시판 박스 */}
