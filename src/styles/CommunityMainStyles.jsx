@@ -20,6 +20,7 @@ export const StH3 = styled.h3`
 export const StBoxSection = styled.section`
   border: 5px solid green;
   display: flex;
+  flex-wrap: wrap;
   gap: 15px;
 `;
 
@@ -27,7 +28,8 @@ export const StBox = styled.div`
   border: 2px solid blue;
   border-radius: 10px;
   padding: 10px;
-  width: 430px;
+  width: ${(props) => (props.$detail ? '800px' : '430px')};
+  cursor: ${(props) => (props.$detail ? 'default' : 'pointer')};
 `;
 
 export const StImg = styled.img`
@@ -47,6 +49,7 @@ export const StInfo = styled.div`
   gap: 10px;
   justify-content: center;
   margin-right: 20px;
+  width: 180px;
 `;
 
 export const StContent = styled.div`
@@ -54,6 +57,7 @@ export const StContent = styled.div`
   padding: 10px;
   border: 2px solid brown;
   border-radius: 10px;
+  min-height: ${(props) => (props.$detail ? '100px' : 'fit-content')};
 `;
 
 export const StBox2 = styled.div`
@@ -89,7 +93,7 @@ export const StLikedBox = styled.div`
   gap: 5px;
   justify-content: center;
   align-items: flex-end;
-  margin-left: 150px;
+  margin-left: ${(props) => (props.$detail ? '430px' : '100px')};
 `;
 
 export const StLine = styled.div`
