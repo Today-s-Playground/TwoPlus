@@ -1,12 +1,11 @@
 import GlobalStyle from './styles/GlobalStyles';
-import ReviewDetail from './components/pages/communityPage/ReviewDetail';
+import Router from './shared/Router';
 
 const App = () => {
   return (
     <>
       <GlobalStyle />
-      <div>App</div>
-      <ReviewDetail />
+      <Router />
     </>
   );
 };
