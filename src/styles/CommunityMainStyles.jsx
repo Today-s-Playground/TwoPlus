@@ -1,11 +1,11 @@
 import styled from 'styled-components';
 
 export const StSection = styled.section`
-  /* border: 2px solid red; */
+  border: 2px solid red;
   padding: 10px;
   margin: 20px;
   border-radius: 3px;
-  width: 990px;
+  width: 980px;
 `;
 
 export const StTitle = styled.div`
