@@ -9,6 +9,13 @@ const GlobalStyle = createGlobalStyle`
   --hover-color: #8D50DB;
   font-family: "Noto Sans KR", sans-serif;
   }
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+  button {
+    cursor: pointer;
+  }
 `;
 
 export default GlobalStyle;
