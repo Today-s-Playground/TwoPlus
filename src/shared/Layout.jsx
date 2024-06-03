@@ -92,9 +92,9 @@ const Layout = ({ children }) => {
             <Search placeholder="검색" />
             <img src="https://www.freeiconspng.com/uploads/search-icon-png-21.png" alt="searchIcon" />
           </SearchContainer>
-          <Link>로그인</Link>
+          <Link to="/login">로그인</Link>
           <div>|</div>
-          <Link>회원가입</Link>
+          <Link to="/signup">회원가입</Link>
         </div>
       </StHeader>
       {children}
