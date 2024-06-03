@@ -11,7 +11,9 @@ import {
   StComment,
   StH3
 } from './../../styles/CommunityMainStyles';
+import StrategyFormat from './StrategyFormat';
 
+// 임시 게임 질문 데이터
 const questionData = [
   {
     id: 1,
@@ -47,32 +49,16 @@ const questionData = [
   }
 ];
 
-const GameQuestion = () => {
-  const navigate = useNavigate();
+const slicedQuestionData = questionData.slice(0, 3);
 
+const GameQuestion = () => {
   return (
     <StSection>
       <StTitle>
         <StH3>게임 질문 게시판</StH3>
         <Link to="/question">더보기</Link>
       </StTitle>
-      <StBoxSection>
-        {questionData.slice(0, 3).map((obj) => (
-          <StBox2 key={obj.id} onClick={() => navigate(`/question/${obj.id}`)}>
-            <StImg src="https://cdn.pixabay.com/photo/2018/03/30/15/11/deer-3275594_1280.jpg" alt="" />
-            <p>{obj.gameName}</p>
-            <p>{obj.title}</p>
-            <StContent>{obj.content}</StContent>
-            <StBoxBottom>
-              <p>{obj.username}</p>
-              <StComment>
-                <p>{obj.commentAmount}</p>
-                <p>(댓글 아이콘)</p>
-              </StComment>
-            </StBoxBottom>
-          </StBox2>
-        ))}
-      </StBoxSection>
+      <StrategyFormat data={slicedQuestionData} path="question" />
     </StSection>
   );
 };
