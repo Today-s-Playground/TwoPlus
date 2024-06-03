@@ -25,7 +25,6 @@ const ReviewDetail = () => {
   const filteredData = data.find((obj) => obj.id === parseInt(param.id));
   return (
     <StBox $detail={true}>
-      {/* 상단 */}
       <StBoxTop>
         <StImg src="https://cdn.pixabay.com/photo/2018/03/30/15/11/deer-3275594_1280.jpg" alt="" />
         <StInfo>
@@ -39,7 +38,6 @@ const ReviewDetail = () => {
           <p>66</p>
         </StLikedBox>
       </StBoxTop>
-      {/* 하단 */}
       <StContent $detail={true}>{filteredData.content}</StContent>
       <StLine>
         <p>{filteredData.commentAmount}</p>
