@@ -7,7 +7,6 @@ const StHeader = styled.header`
   height: 50px;
   display: flex;
   align-items: center;
-  padding-left: 20px;
   color: white;
   font-size: 20px;
   font-weight: bold;
