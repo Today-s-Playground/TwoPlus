@@ -1,19 +1,7 @@
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import {
-  StBox,
-  StBoxSection,
-  StBoxTop,
-  StImg,
-  StInfo,
-  StContent,
-  StSection,
-  StTitle,
-  StLiked,
-  StLikedBox,
-  StLine,
-  StH3
-} from './../../styles/CommunityMainStyles';
+import { Link } from 'react-router-dom';
+import { StSection, StTitle, StH3 } from './../../styles/CommunityMainStyles';
+import ReviewFormat from './ReviewFormat';
 
 // 임시 게임 리뷰 데이터
 const reviewData = [
@@ -23,41 +11,16 @@ const reviewData = [
   { id: 4, gameName: '또 뭐 있지', star: 3.5, username: '뽀', content: '아무거나', commentAmount: 8 }
 ];
 
-const GameReview = () => {
-  const navigate = useNavigate();
+const slicedReviewData = reviewData.slice(0, 2);
 
+const GameReview = () => {
   return (
     <StSection>
       <StTitle>
         <StH3>게임 리뷰 게시판</StH3>
         <Link to="/review">더보기</Link>
       </StTitle>
-      <StBoxSection>
-        {reviewData.slice(0, 2).map((obj) => (
-          <StBox key={obj.id} onClick={() => navigate(`/review/${obj.id}`)}>
-            {/* 상단 */}
-            <StBoxTop>
-              <StImg src="https://cdn.pixabay.com/photo/2018/03/30/15/11/deer-3275594_1280.jpg" alt="" />
-              <StInfo>
-                <p>{obj.gameName}</p>
-                <p>⭐️{obj.star}</p>
-                <p>{obj.username}</p>
-              </StInfo>
-              <StLikedBox>
-                {/* <p>(좋아요 아이콘)</p> */}
-                <StLiked src="../../../../src/images/liked.png" alt="" />
-                <p>66</p>
-              </StLikedBox>
-            </StBoxTop>
-            {/* 하단 */}
-            <StContent>{obj.content}</StContent>
-            <StLine>
-              <p>{obj.commentAmount}</p>
-              <p>(댓글 아이콘)</p>
-            </StLine>
-          </StBox>
-        ))}
-      </StBoxSection>
+      <ReviewFormat data={slicedReviewData} />
     </StSection>
   );
 };
