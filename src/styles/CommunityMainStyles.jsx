@@ -1,15 +1,17 @@
 import styled from 'styled-components';
 
 export const StSection = styled.section`
-  border: 2px solid red;
+  /* border: 2px solid red; */
   padding: 10px;
   margin: 20px;
   border-radius: 3px;
+  width: 990px;
 `;
 
 export const StTitle = styled.div`
   display: flex;
   justify-content: space-between;
+  place-items: center;
 `;
 
 export const StH3 = styled.h3`
@@ -18,17 +20,39 @@ export const StH3 = styled.h3`
 `;
 
 export const StBoxSection = styled.section`
-  border: 5px solid green;
+  /* border: 5px solid green; */
+  place-content: center;
+  background-color: var(--main-color);
+  margin-top: 10px;
+  border-radius: 10px;
+  padding: 20px;
   display: flex;
   flex-wrap: wrap;
-  gap: 15px;
+  gap: 20px;
+  width: fit-content;
 `;
 
 export const StBox = styled.div`
-  border: 2px solid blue;
+  /* border: 2px solid blue; */
+  /* background-color: var(--main-color); */
+  background-color: white;
   border-radius: 10px;
   padding: 10px;
-  width: ${(props) => (props.$detail ? '800px' : '430px')};
+  width: ${(props) => (props.$detail ? '800px' : '440px')};
+  cursor: ${(props) => (props.$detail ? 'default' : 'pointer')};
+`;
+
+export const StBox2 = styled.div`
+  /* border: 2px solid blue; */
+  /* background-color: var(--main-color); */
+  background-color: white;
+  border-radius: 10px;
+  width: 280px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
   cursor: ${(props) => (props.$detail ? 'default' : 'pointer')};
 `;
 
@@ -57,23 +81,15 @@ export const StContent = styled.div`
   padding: 10px;
   border: 2px solid brown;
   border-radius: 10px;
-  min-height: ${(props) => (props.$detail ? '100px' : 'fit-content')};
-`;
-
-export const StBox2 = styled.div`
-  border: 2px solid blue;
-  border-radius: 10px;
-  width: 310px;
-  padding: 10px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
+  min-height: ${(props) => (props.$detail ? '100px' : '16px')};
+  max-height: ${(props) => (props.$detail ? 'fit-content' : '16px')};
+  width: 92%;
 `;
 
 export const StBoxBottom = styled.div`
+  width: 280px;
   display: flex;
-  gap: 70px;
+  justify-content: space-between;
   border-top: 2px solid black;
   padding-top: 5px;
 `;
