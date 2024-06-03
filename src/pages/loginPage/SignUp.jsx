@@ -62,7 +62,7 @@ const SignUp = () => {
     return () => subscription.unsubscribe();
   }, []);
 
-  const signUpNewUser = async (e) => {
+  const signUpNewUser = async () => {
     const { data, error } = await supabase.auth.signUp({
       email,
       password,
@@ -76,6 +76,23 @@ const SignUp = () => {
     if (data) {
       await alert(`${data.user.user_metadata.nickname}님 Today's Playground의 가입을 축하합니다!`);
     }
+  };
+
+  const signInWithGithub = async () => {
+    const { data, error } = await supabase.auth.signInWithOAuth({
+      provider: 'github',
+      options: {
+        data: {
+          nickname
+        }
+      }
+    });
+    if (data) {
+      await alert(`${data.user.user_metadata.nickname}님 Today's Playground의 가입을 축하합니다!`);
+    }
+    // } else (error) {
+    //   return <h1>Error!</h1>
+    // }
   };
 
   return (
@@ -150,6 +167,9 @@ const SignUp = () => {
             required
           />
         </SignUpInputGroup>
+        <div>
+          <button onClick={signInWithGithub}>깃허브로 회원가입하기</button>
+        </div>
         <br />
         <div>약관</div>
         <div className="terms-contain"> </div>

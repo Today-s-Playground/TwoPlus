@@ -22,7 +22,6 @@ const LoginInputGroup = styled.div`
 
 const Login = () => {
   const signInUser = async (e) => {
-    e.preventDefault();
     const { data, error } = await supabase.auth.signInWithPassword({
       email,
       password
@@ -31,7 +30,6 @@ const Login = () => {
   };
 
   const signOutUser = async (e) => {
-    e.preventDefault();
     const { data, error } = await supabase.auth.signOut();
     console.log('signout: ', { data, error });
   };
@@ -45,7 +43,9 @@ const Login = () => {
         <LoginInputGroup>
           <input type="password" placeholder="비밀번호" />
         </LoginInputGroup>
-        <button className="login-button">로그인</button>
+        <button className="login-button" onClick={signInUser}>
+          로그인
+        </button>
         {/* 구현 가능한 것까지 구현하기 */}
         <div>
           <Link to="/signup">회원가입</Link> | <span>아이디/비밀번호 찾기</span>
