@@ -1,9 +1,10 @@
 import React from 'react';
 import '../../styles/LoginCss.css';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
-import supabase from '../../shared/supabaseClient';
+import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import { useContext } from 'react';
+import { UserContext } from '../../api/UserProvider';
 
 const LoginInputGroup = styled.div`
   display: flex;
@@ -25,19 +26,9 @@ const LoginInputGroup = styled.div`
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
+  const { signInUser } = useContext(UserContext);
 
-  const signInUser = async (e) => {
-    const { data, error } = await supabase.auth.signInWithPassword({
-      email: email,
-      password
-    });
-    console.log('signin: ', { data, error });
-  };
-
-  const signOutUser = async (e) => {
-    const { data, error } = await supabase.auth.signOut();
-    console.log('signout: ', { data, error });
-  };
   return (
     <div className="login-layout">
       <div className="login-contain">
@@ -60,7 +51,7 @@ const Login = () => {
             onChange={(event) => setPassword(event.target.value)}
           />
         </LoginInputGroup>
-        <button className="login-button" onClick={signInUser}>
+        <button className="login-button" onClick={() => signInUser(email, password)}>
           로그인
         </button>
         {/* 구현 가능한 것까지 구현하기 */}

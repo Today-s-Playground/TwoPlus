@@ -34,3 +34,7 @@
     background-color: var(--hover-color);
   }
 }
+
+.logout {
+  cursor: pointer;
+}

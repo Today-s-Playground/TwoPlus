@@ -12,7 +12,7 @@ import QuestionDetail from './../pages/communityPage/question/QuestionDetail';
 import MyMain from './../pages/myPage/MyMain';
 import SignUp from '../pages/loginPage/SignUp';
 import Login from '../pages/loginPage/Login';
-import UserProvider from './UserProvider';
+import UserProvider from '../api/UserProvider';
 
 const Router = () => {
   return (
