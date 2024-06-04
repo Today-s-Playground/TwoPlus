@@ -1,7 +1,8 @@
-import styled from 'styled-components';
+import { Link } from 'react-router-dom';
+import styled, { css } from 'styled-components';
 
 export const StSection = styled.section`
-  border: 2px solid red;
+  /* border: 2px solid var(--main-color); */
   padding: 10px;
   margin: 20px;
   border-radius: 3px;
@@ -19,6 +20,13 @@ export const StH3 = styled.h3`
   font-weight: bold;
 `;
 
+export const StLink = styled(Link)`
+  &:hover {
+    font-weight: bold;
+    color: var(--hover-color);
+  }
+`;
+
 export const StBoxSection = styled.section`
   /* border: 5px solid green; */
   place-content: center;
@@ -28,8 +36,8 @@ export const StBoxSection = styled.section`
   padding: 20px;
   display: flex;
   flex-wrap: wrap;
-  gap: 20px;
-  width: fit-content;
+  gap: ${(props) => (props.$review ? '30px' : '20px')};
+  width: ${(props) => (props.$review ? '1000px' : 'fit-content')};
 `;
 
 export const StBox = styled.div`
@@ -40,6 +48,9 @@ export const StBox = styled.div`
   padding: 10px;
   width: ${(props) => (props.$detail ? '800px' : '440px')};
   cursor: ${(props) => (props.$detail ? 'default' : 'pointer')};
+  &:hover {
+    outline: ${(props) => (props.$detail ? '' : '5px solid var(--hover-color)')};
+  }
 `;
 
 export const StBox2 = styled.div`
@@ -54,6 +65,9 @@ export const StBox2 = styled.div`
   align-items: center;
   gap: 10px;
   cursor: ${(props) => (props.$detail ? 'default' : 'pointer')};
+  &:hover {
+    outline: ${(props) => (props.$detail ? '' : '5px solid var(--hover-color)')};
+  }
 `;
 
 export const StImg = styled.img`
@@ -84,6 +98,13 @@ export const StContent = styled.div`
   min-height: ${(props) => (props.$detail ? '100px' : '16px')};
   max-height: ${(props) => (props.$detail ? 'fit-content' : '16px')};
   width: 92%;
+  ${(props) =>
+    !props.$detail &&
+    css`
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    `}
 `;
 
 export const StBoxBottom = styled.div`
