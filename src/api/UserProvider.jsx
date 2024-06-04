@@ -43,6 +43,7 @@ const UserProvider = ({ children }) => {
   const signOutUser = async () => {
     const { error } = await supabase.auth.signOut();
     console.log('signout: ', error);
+    alert(`${data.user.user_metadata.username}님 로그아웃되었습니다!`);
     if (!error) {
       setUser(null);
       navigate('/');

@@ -24,6 +24,7 @@ const LoginInputGroup = styled.div`
 `;
 
 const Login = () => {
+  //로그인할 때 필요
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
@@ -54,11 +55,11 @@ const Login = () => {
         <button className="login-button" onClick={() => signInUser(email, password)}>
           로그인
         </button>
-        {/* 구현 가능한 것까지 구현하기 */}
         <div>
-          <Link to="/signup">회원가입</Link> | <span>아이디/비밀번호 찾기</span>
+          <Link to="/signup">회원가입</Link>
+          {/* | <span>아이디/비밀번호 찾기</span> */}
         </div>
-        <div>소셜 계정으로 간편 로그인</div>
+        {/* <div>소셜 계정으로 간편 로그인</div> */}
       </div>
     </div>
   );
