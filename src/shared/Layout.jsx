@@ -104,9 +104,13 @@ const Layout = ({ children }) => {
             </Link>
           )}
           <div> |</div>
-          <Link to="/signup" className="signup-name">
-            회원가입
-          </Link>
+          {user ? (
+            <span className="login-name">{user.user_metadata.username} 님</span>
+          ) : (
+            <Link to="/signup" className="signup-name">
+              회원가입
+            </Link>
+          )}
         </div>
       </StHeader>
       {children}
