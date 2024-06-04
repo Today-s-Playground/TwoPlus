@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { fetchInfo } from './../../../redux/slices/strategyInfoSlice';
+import { fetchStrategyInfo } from './../../../redux/slices/strategyInfoSlice';
 import {
   StBox,
   StBoxSection,
@@ -26,7 +26,7 @@ const StrategyDetail = () => {
   const { strategyInfo, status, error } = useSelector((state) => state.strategyInfo);
 
   useEffect(() => {
-    if (status === 'idle') dispatch(fetchInfo());
+    if (status === 'idle') dispatch(fetchStrategyInfo());
   }, [status, dispatch]);
 
   if (status === 'loading')

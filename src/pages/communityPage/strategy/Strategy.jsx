@@ -53,7 +53,7 @@ const Strategy = () => {
           <button type="submit">작성</button>
         </StReviewBox>
       </StSection>
-      <StrategyFormat isSliced={false} path="strategy" $detail={true} $notMain={true} />
+      <StrategyFormat isSliced={false} path="strategy" $detail={true} $isMain={false} />
     </>
   );
 };
