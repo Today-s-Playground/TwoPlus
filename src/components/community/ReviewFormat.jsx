@@ -15,7 +15,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchInfo } from '../../redux/slices/reviewInfoSlice';
 import './../../styles/Loading.css';
 
-const ReviewFormat = ({ isSliced, $review }) => {
+const ReviewFormat = ({ isSliced, $notMain }) => {
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
@@ -27,7 +27,7 @@ const ReviewFormat = ({ isSliced, $review }) => {
 
   if (status === 'loading')
     return (
-      <StBoxSection $review={$review}>
+      <StBoxSection $notMain={$notMain}>
         <div className="loader"></div>
       </StBoxSection>
     );
@@ -35,7 +35,7 @@ const ReviewFormat = ({ isSliced, $review }) => {
   const data = isSliced ? reviewInfo.slice(0, 2) : reviewInfo;
 
   return (
-    <StBoxSection $review={$review}>
+    <StBoxSection $notMain={$notMain}>
       {data.map((info) => (
         <StBox key={info.id} onClick={() => navigate(`/review/${info.id}`)}>
           <StBoxTop>
