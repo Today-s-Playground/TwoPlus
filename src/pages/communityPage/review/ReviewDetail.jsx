@@ -12,34 +12,14 @@ import {
 } from '../../../styles/CommunityMainStyles';
 import { StButton, StCommentBox, StForm, StTextarea } from '../../../styles/ReviewDetailStyles';
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect, useState } from 'react';
-import { addInfo, fetchInfo } from '../../../redux/slices/reviewInfoSlice';
+import { useEffect } from 'react';
+import { fetchInfo } from '../../../redux/slices/reviewInfoSlice';
 import './../../../styles/Loading.css';
 import ReviewComment from '../../../components/community/ReviewComment';
 
 // 리뷰 상세 페이지
 const ReviewDetail = () => {
-  const [username, setUsername] = useState('');
-  const [comment, setComment] = useState('');
-
   const dispatch = useDispatch();
-
-  const onAddHandler = (e) => {
-    e.preventDefault();
-
-    const data = new FormData(e.target);
-    const name = data.get('username');
-    const comment = data.get('comment');
-
-    if (!name.trim()) return alert('이름을 입력해주세요.');
-    else if (!comment.trim()) return alert('내용을 입력해주세요.');
-
-    const newReviewInfo = { username, comment };
-
-    dispatch(addInfo(newReviewInfo));
-
-    e.target.reset();
-  };
 
   const param = useParams();
 
@@ -80,7 +60,7 @@ const ReviewDetail = () => {
         <p>(댓글 아이콘)</p>
       </StLine>
       <StCommentBox>
-        <StForm onSubmit={onAddHandler}>
+        <StForm>
           <div>
             <label htmlFor="name">
               이름: <input type="text" id="name" name="username" />
