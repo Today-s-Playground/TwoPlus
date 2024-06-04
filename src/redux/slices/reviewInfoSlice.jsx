@@ -8,10 +8,17 @@ export const fetchInfo = createAsyncThunk('reviewInfo/fetchInfo', async () => {
 });
 
 export const addInfo = createAsyncThunk('reviewInfo/addInfo', async (action) => {
-  const { data, error } = await supabase.from('Review').insert({
-    user_name: action.payload.username,
-    comment: action.payload.comment
-  });
+  const { data, error } = await supabase
+    .from('Review')
+    .insert({
+      game_name: action.gamename,
+      star_score: action.starscore,
+      user_name: action.username,
+      content: action.content
+    })
+    .select('*');
+  if (error) throw error;
+  return data;
 });
 
 const reviewInfoSlice = createSlice({
@@ -35,7 +42,10 @@ const reviewInfoSlice = createSlice({
         state.error = action.error.message; // 에러 메시지를 상태에 저장
       })
       .addCase(addInfo.fulfilled, (state, action) => {
-        state.reviewInfo = [...state.reviewInfo, action.payload];
+        state.reviewInfo.push(action.payload[0]);
+      })
+      .addCase(addInfo.rejected, (state, action) => {
+        state.error = action.error.message;
       });
   }
 });
