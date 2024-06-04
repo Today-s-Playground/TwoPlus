@@ -33,13 +33,13 @@ export const StBoxSection = styled.section`
   background-color: var(--main-color);
   margin-top: 10px;
   border-radius: 10px;
-  padding: ${(props) => (props.$review ? '30px' : '20px')};
+  padding: ${(props) => (props.$notMain ? '30px' : '20px')};
   display: flex;
   flex-wrap: wrap;
-  gap: ${(props) => (props.$review ? '30px' : '20px')};
-  width: ${(props) => (props.$review ? '1000px' : 'fit-content')};
+  gap: ${(props) => (props.$notMain ? '30px' : '20px')};
+  width: ${(props) => (props.$notMain ? '1000px' : 'fit-content')};
   ${(props) =>
-    props.$review &&
+    props.$notMain &&
     css`
       margin-left: 10px;
       margin-bottom: 30px;
@@ -111,6 +111,11 @@ export const StContent = styled.div`
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+    `}
+  ${(props) =>
+    props.$detail &&
+    css`
+      white-space: pre-line;
     `}
 `;
 
