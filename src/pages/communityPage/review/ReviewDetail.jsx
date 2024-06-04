@@ -10,17 +10,39 @@ import {
   StLikedBox,
   StLine
 } from '../../../styles/CommunityMainStyles';
-import { StButton, StCommentBox, StLi, StTextarea, StUl } from '../../../styles/ReviewDetailStyles';
+import { StButton, StCommentBox, StForm, StTextarea } from '../../../styles/ReviewDetailStyles';
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
-import { fetchInfo } from '../../../redux/slices/reviewInfoSlice';
+import { useEffect, useState } from 'react';
+import { addInfo, fetchInfo } from '../../../redux/slices/reviewInfoSlice';
 import './../../../styles/Loading.css';
+import ReviewComment from '../../../components/community/ReviewComment';
 
 // 리뷰 상세 페이지
 const ReviewDetail = () => {
-  const param = useParams();
+  const [username, setUsername] = useState('');
+  const [comment, setComment] = useState('');
 
   const dispatch = useDispatch();
+
+  const onAddHandler = (e) => {
+    e.preventDefault();
+
+    const data = new FormData(e.target);
+    const name = data.get('username');
+    const comment = data.get('comment');
+
+    if (!name.trim()) return alert('이름을 입력해주세요.');
+    else if (!comment.trim()) return alert('내용을 입력해주세요.');
+
+    const newReviewInfo = { username, comment };
+
+    dispatch(addInfo(newReviewInfo));
+
+    e.target.reset();
+  };
+
+  const param = useParams();
+
   const { reviewInfo, status, error } = useSelector((state) => state.reviewInfo);
 
   useEffect(() => {
@@ -36,6 +58,7 @@ const ReviewDetail = () => {
   if (status === 'failed') console.log('에러: ', error);
 
   const filteredData = reviewInfo.find((info) => info.id === parseInt(param.id));
+
   return (
     <StBox $detail={true}>
       <StBoxTop>
@@ -57,15 +80,16 @@ const ReviewDetail = () => {
         <p>(댓글 아이콘)</p>
       </StLine>
       <StCommentBox>
-        <div>
-          <StTextarea name="" id=""></StTextarea>
-          <StButton>작성</StButton>
-        </div>
-        <StUl>
-          <StLi>저는 별로던데요;;</StLi>
-          <StLi>맞아요 재밌더라구요ㅎ</StLi>
-          <StLi>어떤 게 재밌는지 말해주셔야죠!</StLi>
-        </StUl>
+        <StForm onSubmit={onAddHandler}>
+          <div>
+            <label htmlFor="name">
+              이름: <input type="text" id="name" name="username" />
+            </label>
+            <StTextarea name="comment"></StTextarea>
+          </div>
+          <StButton type="submit">작성</StButton>
+        </StForm>
+        <ReviewComment />
       </StCommentBox>
     </StBox>
   );
