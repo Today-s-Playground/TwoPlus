@@ -29,15 +29,22 @@ export const StLink = styled(Link)`
 
 export const StBoxSection = styled.section`
   /* border: 5px solid green; */
-  place-content: center;
+  /* place-content: center; */
   background-color: var(--main-color);
   margin-top: 10px;
   border-radius: 10px;
-  padding: 20px;
+  padding: ${(props) => (props.$review ? '30px' : '20px')};
   display: flex;
   flex-wrap: wrap;
   gap: ${(props) => (props.$review ? '30px' : '20px')};
   width: ${(props) => (props.$review ? '1000px' : 'fit-content')};
+  ${(props) =>
+    props.$review &&
+    css`
+      margin-left: 10px;
+      margin-bottom: 30px;
+      padding-right: 0px;
+    `}
 `;
 
 export const StBox = styled.div`
