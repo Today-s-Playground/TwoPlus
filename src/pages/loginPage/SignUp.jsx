@@ -45,7 +45,7 @@ const SignUp = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [pwCheck, setPwCheck] = useState('');
-  const [nickname, setNickname] = useState('');
+  const [username, setUserName] = useState('');
   const [user, setUser] = useState(null);
 
   useEffect(() => {
@@ -68,13 +68,13 @@ const SignUp = () => {
       password,
       options: {
         data: {
-          nickname
+          username
         }
       }
     });
     console.log('signup: ', { data, error });
     if (data) {
-      await alert(`${data.user.user_metadata.nickname}님 Today's Playground의 가입을 축하합니다!`);
+      await alert(`${data.user.user_metadata.username}님 Today's Playground의 가입을 축하합니다!`);
     }
   };
 
@@ -83,12 +83,12 @@ const SignUp = () => {
       provider: 'github',
       options: {
         data: {
-          nickname
+          username
         }
       }
     });
     if (data) {
-      await alert(`${data.user.user_metadata.nickname}님 Today's Playground의 가입을 축하합니다!`);
+      await alert(`${data.user.user_metadata.username}님 Today's Playground의 가입을 축하합니다!`);
     }
     // } else (error) {
     //   return <h1>Error!</h1>
@@ -157,13 +157,13 @@ const SignUp = () => {
           {/* <span>비밀번호가 다릅니다. 다시 입력해주세요. </span> */}
         </SignUpInputGroup>
         <SignUpInputGroup>
-          <label htmlFor="nickname">닉네임</label>
+          <label htmlFor="username">닉네임</label>
           <input
-            id="nickname"
+            id="username"
             type="text"
             placeholder="닉네임"
             value={nickname}
-            onChange={(event) => setNickname(event.target.value)}
+            onChange={(event) => setUserName(event.target.value)}
             required
           />
         </SignUpInputGroup>
