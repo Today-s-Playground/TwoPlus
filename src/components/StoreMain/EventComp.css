@@ -1,0 +1,28 @@
+.event-title {
+}
+
+.event-frame {
+  display: flex;
+}
+
+.event-img1 {
+  width: 400px;
+  height: 400px;
+}
+
+.event-rightImg {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-left: 40px;
+}
+
+.event-img2 {
+  width: 400px;
+  height: 190px;
+}
+
+.event-img3 {
+  width: 400px;
+  height: 190px;
+}
