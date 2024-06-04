@@ -95,14 +95,18 @@ const Layout = ({ children }) => {
             <img src="https://www.freeiconspng.com/uploads/search-icon-png-21.png" alt="searchIcon" />
           </SearchContainer>
           {user ? (
-            <div className="logout" onClick={signOutUser}>
+            <div className="logout-name" onClick={signOutUser}>
               로그아웃
             </div>
           ) : (
-            <Link to="/login">로그인</Link>
+            <Link to="/login" className="login-name">
+              로그인
+            </Link>
           )}
           <div> |</div>
-          <Link to="/signup">회원가입</Link>
+          <Link to="/signup" className="signup-name">
+            회원가입
+          </Link>
         </div>
       </StHeader>
       {children}

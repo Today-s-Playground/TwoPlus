@@ -35,6 +35,13 @@
   }
 }
 
-.logout {
+.logout-name,
+.login-name,
+.signup-name {
   cursor: pointer;
+  margin-right: 3px;
+
+  &:hover {
+    color: var(--hover-color);
+  }
 }
