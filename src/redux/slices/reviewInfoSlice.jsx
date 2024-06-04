@@ -7,17 +7,19 @@ export const fetchInfo = createAsyncThunk('reviewInfo/fetchInfo', async () => {
   return data;
 });
 
+export const addInfo = createAsyncThunk('reviewInfo/addInfo', async (action) => {
+  const { data, error } = await supabase.from('Review').insert({
+    user_name: action.payload.username,
+    comment: action.payload.comment
+  });
+});
+
 const reviewInfoSlice = createSlice({
   name: 'reviewInfo',
   initialState: {
     reviewInfo: [],
     status: 'idle', // 비동기 작업의 상태를 나타내는 필드
     error: null // 비동기 작업에서 발생한 에러를 저장하는 필드
-  },
-  reducers: {
-    // addInfo: (state, action) => {},
-    // updateInfo: (state, action) => {},
-    // deleteInfo: (state, action) => {}
   },
   extraReducers: (builder) => {
     builder
@@ -31,9 +33,11 @@ const reviewInfoSlice = createSlice({
       .addCase(fetchInfo.rejected, (state, action) => {
         state.status = 'failed'; // 작업이 실패했음을 나타내는 상태
         state.error = action.error.message; // 에러 메시지를 상태에 저장
+      })
+      .addCase(addInfo.fulfilled, (state, action) => {
+        state.reviewInfo = [...state.reviewInfo, action.payload];
       });
   }
 });
 
-// export const { addInfo, updateInfo, deleteInfo } = reviewInfoSlice.actions;
 export default reviewInfoSlice.reducer;
