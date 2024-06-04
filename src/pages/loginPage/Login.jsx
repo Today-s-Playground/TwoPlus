@@ -1,7 +1,10 @@
 import React from 'react';
 import '../../styles/LoginCss.css';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import { useContext } from 'react';
+import { UserContext } from '../../api/UserProvider';
 
 const LoginInputGroup = styled.div`
   display: flex;
@@ -21,36 +24,42 @@ const LoginInputGroup = styled.div`
 `;
 
 const Login = () => {
-  const signInUser = async (e) => {
-    const { data, error } = await supabase.auth.signInWithPassword({
-      email,
-      password
-    });
-    console.log('signin: ', { data, error });
-  };
+  //로그인할 때 필요
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const navigate = useNavigate();
+  const { signInUser } = useContext(UserContext);
 
-  const signOutUser = async (e) => {
-    const { data, error } = await supabase.auth.signOut();
-    console.log('signout: ', { data, error });
-  };
   return (
     <div className="login-layout">
       <div className="login-contain">
         <span>로그인</span>
         <LoginInputGroup>
-          <input type="text" placeholder="이메일" />
+          <input
+            type="text"
+            name="email"
+            placeholder="이메일"
+            value={email}
+            onChange={(event) => setEmail(event.target.value)}
+          />
         </LoginInputGroup>
         <LoginInputGroup>
-          <input type="password" placeholder="비밀번호" />
+          <input
+            type="password"
+            name="password"
+            placeholder="비밀번호"
+            value={password}
+            onChange={(event) => setPassword(event.target.value)}
+          />
         </LoginInputGroup>
-        <button className="login-button" onClick={signInUser}>
+        <button className="login-button" onClick={() => signInUser(email, password)}>
           로그인
         </button>
-        {/* 구현 가능한 것까지 구현하기 */}
         <div>
-          <Link to="/signup">회원가입</Link> | <span>아이디/비밀번호 찾기</span>
+          <Link to="/signup">회원가입</Link>
+          {/* | <span>아이디/비밀번호 찾기</span> */}
         </div>
-        <div>소셜 계정으로 간편 로그인</div>
+        {/* <div>소셜 계정으로 간편 로그인</div> */}
       </div>
     </div>
   );
