@@ -10,6 +10,8 @@ import StrategyDetail from './../pages/communityPage/strategy/StrategyDetail';
 import Question from './../pages/communityPage/question/Question';
 import QuestionDetail from './../pages/communityPage/question/QuestionDetail';
 import MyMain from './../pages/myPage/MyMain';
+import SignUp from '../pages/loginPage/SignUp';
+import Login from '../pages/loginPage/Login';
 
 const Router = () => {
   return (
@@ -18,6 +20,8 @@ const Router = () => {
         <Routes>
           {/* 홈 페이지(메인 페이지) 경로 설정 */}
           <Route path="/" element={<Home />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/login" element={<Login />} />
 
           {/* 스토어 페이지 경로 설정 */}
           <Route path="/store" element={<StoreMain />} />
