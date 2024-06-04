@@ -43,3 +43,30 @@
   padding: 20px;
   margin: 20px 0px;
 }
+
+.password-isnt-same {
+  color: red;
+}
+/* 
+.social-account {
+  display: flex;
+  flex-basis: 100%;
+  align-items: center;
+  margin: 8px 0px;
+}
+
+.social-account::before {
+  content: '';
+  flex-grow: 1;
+  margin: 0px 16px;
+  height: 1px;
+  line-height: 0px;
+}
+
+.social-account::after {
+  content: '';
+  flex-grow: 1;
+  margin: 0px 16px;
+  height: 1px;
+  line-height: 0px;
+} */

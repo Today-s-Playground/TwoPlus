@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import { createClient } from '@supabase/supabase-js';
 import { useState } from 'react';
 import { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const SUPABASE_PROJECT_URL = import.meta.env.VITE_SUPABASE_URL;
 const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_KEY;
@@ -48,6 +48,9 @@ const SignUp = () => {
   const [username, setUserName] = useState('');
   const [user, setUser] = useState(null);
 
+  const navigate = useNavigate();
+
+  //로그인 상태 확인
   useEffect(() => {
     const {
       data: { subscription }
@@ -62,6 +65,7 @@ const SignUp = () => {
     return () => subscription.unsubscribe();
   }, []);
 
+  //이메일 회원가입
   const signUpNewUser = async () => {
     const { data, error } = await supabase.auth.signUp({
       email,
@@ -74,10 +78,17 @@ const SignUp = () => {
     });
     console.log('signup: ', { data, error });
     if (data) {
-      await alert(`${data.user.user_metadata.username}님 Today's Playground의 가입을 축하합니다!`);
+      await alert(
+        `${data.user.user_metadata.username}님 Today's Playground의 가입을 축하합니다! 이메일을 인증해주세요!`
+      );
     }
+    if (error) {
+      return await (<h1>Error!</h1>);
+    }
+    navigate('/home');
   };
 
+  // 깃헙 회원가입
   const signInWithGithub = async () => {
     const { data, error } = await supabase.auth.signInWithOAuth({
       provider: 'github',
@@ -87,12 +98,20 @@ const SignUp = () => {
         }
       }
     });
+    console.log('signup: ', { data, error });
     if (data) {
-      await alert(`${data.user.user_metadata.username}님 Today's Playground의 가입을 축하합니다!`);
+      return await alert(`${data.user.user_metadata.username}님 Today's Playground의 가입을 축하합니다!`);
     }
-    // } else (error) {
-    //   return <h1>Error!</h1>
-    // }
+    if (error) {
+      return await (<h1>Error!</h1>);
+    }
+
+    navigate('/home');
+  };
+
+  // 비밀번호 확인
+  const isPWSame = (password, pwCheck) => {
+    return password === pwCheck;
   };
 
   return (
@@ -120,14 +139,6 @@ const SignUp = () => {
             {/* <button className="signup-button">이메일 인증번호 발송</button> */}
           </div>
         </SignUpInputGroup>
-        {/* <SignUpInputGroup>
-          <label htmlFor="emailCheck">이메일 인증번호 </label>
-          <div>
-            {' '}
-            <input id="emailCheck" name="id" type="text" placeholder="이메일 인증번호" />
-            <button className="signup-button">이메일 인증번호 확인</button>
-          </div>
-        </SignUpInputGroup> */}
         <SignUpInputGroup>
           <label htmlFor="password">비밀번호</label>
           <input
@@ -140,7 +151,7 @@ const SignUp = () => {
             required
           />
           {/* 보안 관련 설정 수정하기 */}
-          {/* <span>비밀번호는 ... </span> */}
+          {/* 이거저거 섞는 법 알아보기 */}
         </SignUpInputGroup>
         <SignUpInputGroup>
           <label htmlFor="passwordCheck">비밀번호 확인</label>
@@ -153,8 +164,7 @@ const SignUp = () => {
             onChange={(event) => setPwCheck(event.target.value)}
             required
           />
-          {/* 다를 경우에만 하는 법 알아보기*/}
-          {/* <span>비밀번호가 다릅니다. 다시 입력해주세요. </span> */}
+          {isPWSame(password, pwCheck) ? '' : <span className="password-isnt-same">비밀번호가 다릅니다.</span>}
         </SignUpInputGroup>
         <SignUpInputGroup>
           <label htmlFor="username">닉네임</label>
@@ -162,11 +172,13 @@ const SignUp = () => {
             id="username"
             type="text"
             placeholder="닉네임"
-            value={nickname}
+            value={username}
             onChange={(event) => setUserName(event.target.value)}
             required
           />
         </SignUpInputGroup>
+        <div className="social-account">소셜 계정으로 로그인하기</div>
+
         <div>
           <button onClick={signInWithGithub}>깃허브로 회원가입하기</button>
         </div>
