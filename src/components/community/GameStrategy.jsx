@@ -8,7 +8,7 @@ const GameStrategy = () => {
         <StH3>🏹게임 공략 게시판</StH3>
         <StLink to="/strategy">더보기</StLink>
       </StTitle>
-      <StrategyFormat isSliced={true} path="strategy" />
+      <StrategyFormat isSliced={true} $isMain={true} path="strategy" />
     </StSection>
   );
 };
