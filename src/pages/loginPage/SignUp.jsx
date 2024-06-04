@@ -3,16 +3,10 @@
 import React from 'react';
 import '../../styles/SignUpCss.css';
 import styled from 'styled-components';
-import { createClient } from '@supabase/supabase-js';
 import { useState } from 'react';
-import { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import githubLogo from '../../images/github.png';
-
-const SUPABASE_PROJECT_URL = import.meta.env.VITE_SUPABASE_URL;
-const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_KEY;
-
-const supabase = createClient(SUPABASE_PROJECT_URL, SUPABASE_ANON_KEY);
+import supabase from '../../shared/supabaseClient';
 
 const SignUpInputGroup = styled.div`
   display: flex;
@@ -43,28 +37,13 @@ const SignUpInputGroup = styled.div`
 `;
 
 const SignUp = () => {
+  // 회원가입에만 쓰는 용도
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [pwCheck, setPwCheck] = useState('');
   const [username, setUserName] = useState('');
-  const [user, setUser] = useState(null);
 
   const navigate = useNavigate();
-
-  //로그인 상태 확인
-  useEffect(() => {
-    const {
-      data: { subscription }
-    } = supabase.auth.onAuthStateChange((session) => {
-      if (session) {
-        setUser(session.user);
-      } else {
-        setUser(null);
-      }
-    });
-
-    return () => subscription.unsubscribe();
-  }, []);
 
   //이메일 회원가입
   const signUpNewUser = async () => {
@@ -86,7 +65,7 @@ const SignUp = () => {
     // if (error) {
     //   return <h1>Error!</h1>;
     // }
-    navigate('/home');
+    navigate('/');
   };
 
   // 깃헙 회원가입

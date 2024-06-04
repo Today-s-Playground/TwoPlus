@@ -2,6 +2,8 @@ import React from 'react';
 import '../../styles/LoginCss.css';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import supabase from '../../shared/supabaseClient';
+import { useState } from 'react';
 
 const LoginInputGroup = styled.div`
   display: flex;
@@ -21,9 +23,12 @@ const LoginInputGroup = styled.div`
 `;
 
 const Login = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
   const signInUser = async (e) => {
     const { data, error } = await supabase.auth.signInWithPassword({
-      email,
+      email: email,
       password
     });
     console.log('signin: ', { data, error });
@@ -38,10 +43,22 @@ const Login = () => {
       <div className="login-contain">
         <span>로그인</span>
         <LoginInputGroup>
-          <input type="text" placeholder="이메일" />
+          <input
+            type="text"
+            name="email"
+            placeholder="이메일"
+            value={email}
+            onChange={(event) => setEmail(event.target.value)}
+          />
         </LoginInputGroup>
         <LoginInputGroup>
-          <input type="password" placeholder="비밀번호" />
+          <input
+            type="password"
+            name="password"
+            placeholder="비밀번호"
+            value={password}
+            onChange={(event) => setPassword(event.target.value)}
+          />
         </LoginInputGroup>
         <button className="login-button" onClick={signInUser}>
           로그인
