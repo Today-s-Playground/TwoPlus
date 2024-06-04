@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import supabase from '../../shared/supabaseClient';
 
-export const fetchInfo = createAsyncThunk('strategyInfo/fetchInfo', async () => {
+export const fetchStrategyInfo = createAsyncThunk('strategyInfo/fetchStrategyInfo', async () => {
   const { data, error } = await supabase.from('Strategy').select('*');
   if (error) throw error;
   return data;
@@ -30,14 +30,14 @@ const strategyInfoSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchInfo.pending, (state) => {
+      .addCase(fetchStrategyInfo.pending, (state) => {
         state.status = 'loading'; // 작업이 진행 중임을 나타내는 상태
       })
-      .addCase(fetchInfo.fulfilled, (state, action) => {
+      .addCase(fetchStrategyInfo.fulfilled, (state, action) => {
         state.status = 'succeeded'; // 작업이 성공적으로 완료됨을 나타내는 상태
         state.strategyInfo = action.payload; // 가져온 데이터를 상태에 저장함
       })
-      .addCase(fetchInfo.rejected, (state, action) => {
+      .addCase(fetchStrategyInfo.rejected, (state, action) => {
         state.status = 'failed'; // 작업이 실패했음을 나타내는 상태
         state.error = action.error.message; // 에러 메시지를 상태에 저장
       })
