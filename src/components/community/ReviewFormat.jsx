@@ -2,20 +2,20 @@ import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   StBox,
-  StBoxSection,
   StBoxTop,
   StImg,
   StInfo,
   StContent,
   StLiked,
   StLikedBox,
-  StLine
+  StLine,
+  StBoxSection
 } from './../../styles/CommunityMainStyles';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchInfo } from '../../redux/slices/reviewInfoSlice';
 import './../../styles/Loading.css';
 
-const ReviewFormat = ({ isSliced }) => {
+const ReviewFormat = ({ isSliced, $review }) => {
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
@@ -27,7 +27,7 @@ const ReviewFormat = ({ isSliced }) => {
 
   if (status === 'loading')
     return (
-      <StBoxSection>
+      <StBoxSection $review={$review}>
         <div className="loader"></div>
       </StBoxSection>
     );
@@ -35,7 +35,7 @@ const ReviewFormat = ({ isSliced }) => {
   const data = isSliced ? reviewInfo.slice(0, 2) : reviewInfo;
 
   return (
-    <StBoxSection>
+    <StBoxSection $review={$review}>
       {data.map((info) => (
         <StBox key={info.id} onClick={() => navigate(`/review/${info.id}`)}>
           <StBoxTop>
@@ -48,7 +48,7 @@ const ReviewFormat = ({ isSliced }) => {
             <StLikedBox>
               {/* <p>(좋아요 아이콘)</p> */}
               <StLiked src="../../../../src/images/liked.png" alt="" />
-              <p>66</p>
+              <p>{info.liked_amount}</p>
             </StLikedBox>
           </StBoxTop>
           <StContent>{info.content}</StContent>

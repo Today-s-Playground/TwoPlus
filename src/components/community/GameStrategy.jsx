@@ -1,6 +1,4 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { StSection, StTitle, StH3 } from './../../styles/CommunityMainStyles';
+import { StSection, StTitle, StH3, StLink } from './../../styles/CommunityMainStyles';
 import StrategyFormat from './StrategyFormat';
 
 // 임시 게임 공략 데이터
@@ -45,8 +43,8 @@ const GameStrategy = () => {
   return (
     <StSection>
       <StTitle>
-        <StH3>게임 공략 게시판</StH3>
-        <Link to="/strategy">더보기</Link>
+        <StH3>🏹게임 공략 게시판</StH3>
+        <StLink to="/strategy">더보기</StLink>
       </StTitle>
       <StrategyFormat data={slicedStrategyData} path="strategy" />
     </StSection>
