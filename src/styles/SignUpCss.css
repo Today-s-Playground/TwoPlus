@@ -31,6 +31,8 @@
   border-radius: 5px;
   background-color: var(--main-color);
   color: white;
+  display: flex;
+  margin: 0 auto;
 
   &:hover {
     background-color: var(--hover-color);
@@ -47,7 +49,7 @@
 .password-isnt-same {
   color: red;
 }
-/* 
+
 .social-account {
   display: flex;
   flex-basis: 100%;
@@ -55,18 +57,19 @@
   margin: 8px 0px;
 }
 
-.social-account::before {
-  content: '';
-  flex-grow: 1;
-  margin: 0px 16px;
-  height: 1px;
-  line-height: 0px;
-}
-
+.social-account::before,
 .social-account::after {
   content: '';
   flex-grow: 1;
   margin: 0px 16px;
   height: 1px;
-  line-height: 0px;
-} */
+  background-color: var(--hover-color);
+}
+
+.githubLogo {
+  display: flex;
+  margin: 0 auto;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+}

@@ -7,6 +7,7 @@ import { createClient } from '@supabase/supabase-js';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import githubLogo from '../../images/github.png';
 
 const SUPABASE_PROJECT_URL = import.meta.env.VITE_SUPABASE_URL;
 const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_KEY;
@@ -82,9 +83,9 @@ const SignUp = () => {
         `${data.user.user_metadata.username}님 Today's Playground의 가입을 축하합니다! 이메일을 인증해주세요!`
       );
     }
-    if (error) {
-      return await (<h1>Error!</h1>);
-    }
+    // if (error) {
+    //   return <h1>Error!</h1>;
+    // }
     navigate('/home');
   };
 
@@ -106,7 +107,7 @@ const SignUp = () => {
       return await (<h1>Error!</h1>);
     }
 
-    navigate('/home');
+    navigate('/');
   };
 
   // 비밀번호 확인
@@ -177,10 +178,9 @@ const SignUp = () => {
             required
           />
         </SignUpInputGroup>
-        <div className="social-account">소셜 계정으로 로그인하기</div>
-
         <div>
-          <button onClick={signInWithGithub}>깃허브로 회원가입하기</button>
+          <div className="social-account">소셜 계정으로 로그인하기</div>
+          <img src={githubLogo} alt="" onClick={signInWithGithub} className="githubLogo" />
         </div>
         <br />
         <div>약관</div>
