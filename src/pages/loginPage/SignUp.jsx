@@ -7,11 +7,12 @@ import { createClient } from '@supabase/supabase-js';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import supabase from '../../shared/supabaseClient';
 
-const SUPABASE_PROJECT_URL = import.meta.env.VITE_SUPABASE_URL;
-const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_KEY;
+// const SUPABASE_PROJECT_URL = import.meta.env.VITE_SUPABASE_URL;
+// const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_KEY;
 
-const supabase = createClient(SUPABASE_PROJECT_URL, SUPABASE_ANON_KEY);
+// const supabase = createClient(SUPABASE_PROJECT_URL, SUPABASE_ANON_KEY);
 
 const SignUpInputGroup = styled.div`
   display: flex;
@@ -85,7 +86,7 @@ const SignUp = () => {
     if (error) {
       return await (<h1>Error!</h1>);
     }
-    navigate('/home');
+    navigate('/');
   };
 
   // 깃헙 회원가입
@@ -106,7 +107,7 @@ const SignUp = () => {
       return await (<h1>Error!</h1>);
     }
 
-    navigate('/home');
+    navigate('/');
   };
 
   // 비밀번호 확인
