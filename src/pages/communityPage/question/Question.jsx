@@ -1,43 +1,61 @@
+import { useDispatch } from 'react-redux';
 import StrategyFormat from '../../../components/community/StrategyFormat';
-
-// 임시 게임 질문 데이터
-const questionData = [
-  {
-    id: 1,
-    gameName: '게임이름1',
-    title: '게시글제목1',
-    content: '질문내용1',
-    username: '유저1',
-    commentAmount: 10
-  },
-  {
-    id: 2,
-    gameName: '게임이름2',
-    title: '게시글제목2',
-    content: '질문내용2',
-    username: '유저2',
-    commentAmount: 20
-  },
-  {
-    id: 3,
-    gameName: '게임이름3',
-    title: '게시글제목3',
-    content: '질문내용3',
-    username: '유저3',
-    commentAmount: 30
-  },
-  {
-    id: 4,
-    gameName: '게임이름4',
-    title: '게시글제목4',
-    content: '질문내용4',
-    username: '유저4',
-    commentAmount: 40
-  }
-];
+import { StH3 } from '../../../styles/CommunityMainStyles';
+import { StInput, StSection, StReviewBox, StTextarea } from '../../../styles/ReviewStyles';
+import { addInfo } from '../../../redux/slices/questionInfoSlice';
 
 const Question = () => {
-  return <StrategyFormat data={questionData} />;
+  const dispatch = useDispatch();
+
+  const onAddHandler = (e) => {
+    e.preventDefault();
+
+    const data = new FormData(e.target);
+    const gamename = data.get('gamename');
+    const title = data.get('title');
+    const username = data.get('username');
+    const content = data.get('content');
+
+    if (!gamename.trim()) return alert('게임 이름을 입력해주세요.');
+    else if (!title.trim()) return alert('제목을 입력해주세요.');
+    else if (!username.trim()) return alert('유저 이름을 입력해주세요.');
+    else if (!content.trim()) return alert('내용을 입력해주세요.');
+    else {
+      const newQuestionInfo = { gamename, title, username, content };
+      dispatch(addInfo(newQuestionInfo));
+      alert('질문이 등록되었습니다.');
+    }
+
+    e.target.reset();
+  };
+
+  return (
+    <>
+      <StSection>
+        <StH3>질문 작성하기📝</StH3>
+        <StReviewBox onSubmit={onAddHandler}>
+          <label htmlFor="gamename">
+            게임 이름&ensp;
+            <StInput $width="300px" type="text" id="gamename" name="gamename" />
+          </label>
+          <label htmlFor="title">
+            제목&ensp;
+            <StInput $width="300px" type="text" id="title" name="title" />
+          </label>
+          <label htmlFor="username">
+            유저 이름&ensp;
+            <StInput $width="150px" type="text" id="username" name="username" />
+          </label>
+          <label htmlFor="content">
+            <br />
+            <StTextarea id="content" name="content"></StTextarea>
+          </label>
+          <button type="submit">작성</button>
+        </StReviewBox>
+      </StSection>
+      <StrategyFormat isSliced={false} path="question" $detail={true} $isMain={false} />
+    </>
+  );
 };
 
 export default Question;
