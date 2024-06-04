@@ -12,10 +12,12 @@ import QuestionDetail from './../pages/communityPage/question/QuestionDetail';
 import MyMain from './../pages/myPage/MyMain';
 import SignUp from '../pages/loginPage/SignUp';
 import Login from '../pages/loginPage/Login';
+import ScrollToTop from './ScrollToTop';
 
 const Router = () => {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <Layout>
         <Routes>
           {/* 홈 페이지(메인 페이지) 경로 설정 */}
