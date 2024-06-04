@@ -8,7 +8,7 @@ export const StSection = styled.section`
   margin-bottom: 30px;
 `;
 
-export const StReviewBox = styled.div`
+export const StReviewBox = styled.form`
   /* border: 3px solid green; */
   margin-top: 20px;
   display: flex;
