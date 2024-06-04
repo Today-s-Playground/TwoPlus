@@ -54,7 +54,7 @@ const Review = () => {
           <button type="submit">작성</button>
         </StReviewBox>
       </StSection>
-      <ReviewFormat isSliced={false} $review={true} />
+      <ReviewFormat isSliced={false} $notMain={true} />
     </>
   );
 };
