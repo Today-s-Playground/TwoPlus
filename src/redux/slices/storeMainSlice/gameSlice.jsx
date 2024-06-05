@@ -1,37 +1,10 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
+// src/redux/slices/actions.js
 
-const API_KEY = '2RS1HJUZVWY9I9XK';
+// 액션 타입 정의
+export const SET_GAMES = 'SET_GAMES';
 
-export const fetchGames = createAsyncThunk('games/fetchGames', async () => {
-  const response = await axios.get(`https://api.steampowered.com/ISteamApps/GetAppList/v2/`);
-  return response.data.applist.apps;
+// 액션 크리에이터 정의
+export const setGames = (games) => ({
+  type: SET_GAMES,
+  payload: games
 });
-
-const gameSlice = createSlice({
-  name: 'games',
-  initialState: {
-    loading: false,
-    games: [],
-    error: ''
-  },
-  reducers: {},
-  extraReducers: (builder) => {
-    builder
-      .addCase(fetchGames.pending, (state) => {
-        state.loading = true;
-      })
-      .addCase(fetchGames.fulfilled, (state, action) => {
-        state.loading = false;
-        state.games = action.payload;
-        state.error = '';
-      })
-      .addCase(fetchGames.rejected, (state, action) => {
-        state.loading = false;
-        state.games = [];
-        state.error = action.error.message;
-      });
-  }
-});
-
-export default gameSlice.reducer;
