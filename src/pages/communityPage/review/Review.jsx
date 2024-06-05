@@ -3,6 +3,7 @@ import { StH3 } from '../../../styles/CommunityMainStyles';
 import { StButton, StInput, StReviewBox, StSection, StTextarea } from '../../../styles/ReviewStyles';
 import { useDispatch } from 'react-redux';
 import { addInfo } from '../../../redux/slices/reviewInfoSlice';
+import CommunityLayout from '../../../shared/CommunityLayout';
 
 const Review = () => {
   const dispatch = useDispatch();
@@ -31,7 +32,7 @@ const Review = () => {
   };
 
   return (
-    <>
+    <CommunityLayout>
       <StSection>
         <StH3>리뷰 작성하기📝</StH3>
         <StReviewBox onSubmit={onAddHandler}>
@@ -50,12 +51,12 @@ const Review = () => {
           <label htmlFor="content">
             <br />
             <StTextarea id="content" name="content"></StTextarea>
-          </label>
+          </label>{' '}
+          <StButton type="submit">작성</StButton>
         </StReviewBox>
-        <StButton type="submit">작성</StButton>
       </StSection>
       <ReviewFormat isSliced={false} $isMain={false} />
-    </>
+    </CommunityLayout>
   );
 };
 

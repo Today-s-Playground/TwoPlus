@@ -3,6 +3,7 @@ import StrategyFormat from '../../../components/community/StrategyFormat';
 import { addInfo } from '../../../redux/slices/strategyInfoSlice';
 import { StH3 } from '../../../styles/CommunityMainStyles';
 import { StInput, StSection, StReviewBox, StTextarea, StButton } from '../../../styles/ReviewStyles';
+import CommunityLayout from '../../../shared/CommunityLayout';
 
 const Strategy = () => {
   const dispatch = useDispatch();
@@ -30,7 +31,7 @@ const Strategy = () => {
   };
 
   return (
-    <>
+    <CommunityLayout>
       <StSection>
         <StH3>게임 공략법 작성하기📝</StH3>
         <StReviewBox onSubmit={onAddHandler}>
@@ -54,7 +55,7 @@ const Strategy = () => {
         </StReviewBox>
       </StSection>
       <StrategyFormat isSliced={false} path="strategy" $detail={true} $isMain={false} />
-    </>
+    </CommunityLayout>
   );
 };
 
