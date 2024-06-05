@@ -77,6 +77,8 @@ const StFooter = styled.footer`
   align-items: center;
   justify-content: center;
   font-size: 12px;
+  flex-direction: column;
+  gap: 1rem;
 `;
 const Layout = ({ children }) => {
   const { user, signOutUser } = useContext(UserContext);
@@ -114,7 +116,13 @@ const Layout = ({ children }) => {
         </div>
       </StHeader>
       {children}
-      <StFooter>푸터 부분</StFooter>
+      <StFooter>
+        <div>팀스파르타주식회사 내일배움캠프</div>
+        <div>
+          <span>5늘만놀조(A05조) </span>
+          <span> 김선민 김현진 최혜미 홍성빈</span>
+        </div>
+      </StFooter>
     </>
   );
 };
