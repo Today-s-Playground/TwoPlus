@@ -26,14 +26,14 @@
 }
 
 .arrow-up {
-  position: absolute;
-  margin-top: -25px;
+  position: fixed;
+  margin-top: 450px;
   left: calc(50% - 10px);
   width: 0;
   height: 0;
   border-left: 15px solid transparent;
   border-right: 15px solid transparent;
-  border-top: 15px solid #ceacf6;
+  border-top: 15px solid #8d50db;
   z-index: 9999;
 }
 

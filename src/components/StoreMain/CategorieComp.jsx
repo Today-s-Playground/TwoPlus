@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 const CategorieCompImg = styled.img`
@@ -36,6 +37,7 @@ const CardStyle = styled.div`
   flex-direction: column;
   border-radius: 20px;
   border: 1px solid lightgray;
+  cursor: pointer;
 `;
 
 const GenreContainer = styled.div`
@@ -54,12 +56,18 @@ const GenreItem = styled.span`
 `;
 
 const CategorieComp = ({ gameList, selctedGenresName }) => {
+  const navigate = useNavigate();
+
+  const handleCardClick = (gameId) => {
+    navigate(`/game/${gameId}`);
+  };
+
   return (
     <Container>
       <h2>{selctedGenresName}</h2>
       <Colunm>
         {gameList.map((item, index) => (
-          <CardStyle key={index}>
+          <CardStyle key={index} onClick={() => handleCardClick(item.id)}>
             <CategorieCompImg src={item.background_image} />
             <Title>{item.name}</Title>
             <GenreContainer>

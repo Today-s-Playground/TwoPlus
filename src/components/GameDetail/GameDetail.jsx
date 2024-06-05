@@ -28,7 +28,6 @@ const GameDetail = () => {
       <h1>{gameDetails.name}</h1>
       <img src={gameDetails.background_image} alt={gameDetails.name} />
       <p>{gameDetails.description_raw}</p>
-      {/* 게임의 상세 정보를 추가로 표시 */}
     </div>
   );
 };

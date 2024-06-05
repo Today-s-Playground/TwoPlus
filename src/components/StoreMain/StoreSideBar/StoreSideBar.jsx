@@ -30,7 +30,6 @@ function StoreSideBar({ genereId, selectedGenresName }) {
   const getGenreList = async () => {
     try {
       const resp = await GameApi.getGenreList();
-      console.log(resp.data); // 응답 데이터 확인
       if (resp.data && resp.data.results) {
         setGenreList(resp.data.results);
       }
