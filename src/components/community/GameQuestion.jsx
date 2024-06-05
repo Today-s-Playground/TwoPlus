@@ -1,4 +1,5 @@
-import StrategyFormat from '../../../components/community/StrategyFormat';
+import { StSection, StTitle, StH3, StLink } from './../../styles/CommunityMainStyles';
+import StrategyFormat from './StrategyFormat';
 
 // 임시 게임 질문 데이터
 const questionData = [
@@ -36,8 +37,18 @@ const questionData = [
   }
 ];
 
-const Question = () => {
-  return <StrategyFormat data={questionData} />;
+const slicedQuestionData = questionData.slice(0, 3);
+
+const GameQuestion = () => {
+  return (
+    <StSection>
+      <StTitle>
+        <StH3>🙋‍♂️게임 질문 게시판🙋‍♀️</StH3>
+        <StLink to="/question">더보기</StLink>
+      </StTitle>
+      <StrategyFormat data={slicedQuestionData} path="question" />
+    </StSection>
+  );
 };
 
-export default Question;
+export default GameQuestion;

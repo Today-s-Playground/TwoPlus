@@ -90,6 +90,7 @@ const SignUp = () => {
     }
 
     navigate('/');
+    navigate('/');
   };
 
   // 비밀번호 확인
