@@ -1,34 +1,12 @@
-import {
-  EmailInput,
-  GameSection,
-  InforSection,
-  InforState,
-  ListSection,
-  Main,
-  ProfileSection,
-  UserInfo
-} from '../../styles/MyMainStyles';
+import { GameSection, InforSection, ListSection, Main, ProfileSection } from '../../styles/MyMainStyles';
 import InfoCard from './InfoCard';
+import UserInfo from './UserInfo';
 
 const MyMain = () => {
   return (
     <Main>
       <ProfileSection />
-      <UserInfo>
-        <div className="userBox">
-          <div className="userName">
-            <div className="nickName">닉네임</div>
-            <p className="userInfor">실명, 🇰🇷 korea, Republic of</p>
-          </div>
-          <EmailInput placeholder="이메일을 입력하세요 >" />
-        </div>
-        <div className="profileBox">
-          <img src="https://ifh.cc/g/dgyJCA.png" alt="이미지" className="profilePic" />
-          <div className="correctionBox">
-            <img src="https://ifh.cc/g/4P9vHm.png" alt="수정이미지" className="correction" />
-          </div>
-        </div>
-      </UserInfo>
+      <UserInfo />
       {/* 가장 많이 플레이한 게임 */}
       <GameSection>
         <div className="gamePic">

@@ -1,5 +1,7 @@
+import { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { UserContext } from '../api/UserProvider';
 
 const StHeader = styled.header`
   width: 100%;
@@ -76,8 +78,8 @@ const StFooter = styled.footer`
   justify-content: center;
   font-size: 12px;
 `;
-
 const Layout = ({ children }) => {
+  const { user, signOutUser } = useContext(UserContext);
   return (
     <>
       <StHeader>
@@ -92,9 +94,23 @@ const Layout = ({ children }) => {
             <Search placeholder="검색" />
             <img src="https://www.freeiconspng.com/uploads/search-icon-png-21.png" alt="searchIcon" />
           </SearchContainer>
-          <Link>로그인</Link>
-          <div>|</div>
-          <Link>회원가입</Link>
+          {user ? (
+            <div className="logout-name" onClick={signOutUser}>
+              로그아웃
+            </div>
+          ) : (
+            <Link to="/login" className="login-name">
+              로그인
+            </Link>
+          )}
+          <div> |</div>
+          {user ? (
+            <span className="login-name">{user.user_metadata.username} 님</span>
+          ) : (
+            <Link to="/signup" className="signup-name">
+              회원가입
+            </Link>
+          )}
         </div>
       </StHeader>
       {children}

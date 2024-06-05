@@ -15,7 +15,7 @@ export const ProfileSection = styled.div`
   z-index: -1;
 `;
 
-export const UserInfo = styled.section`
+export const UserInfor = styled.section`
   padding: 50px;
   margin: 50px;
   display: flex;
@@ -33,6 +33,7 @@ export const UserInfo = styled.section`
   }
   .userInfor {
     font-size: 20px;
+    margin-left: 10px;
   }
 
   .profileBox {
