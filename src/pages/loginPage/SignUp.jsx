@@ -65,9 +65,10 @@ const SignUp = () => {
         `${data.user.user_metadata.username}님 Today's Playground의 가입을 축하합니다! 이메일을 인증해주세요!`
       );
     }
-    // if (error) {
-    //   return <h1>Error!</h1>;
-    // }
+
+    if (error) {
+      return await (<h1>Error!</h1>);
+    }
     navigate('/');
   };
 

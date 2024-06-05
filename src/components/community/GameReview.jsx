@@ -8,7 +8,7 @@ const GameReview = () => {
         <StH3>📋게임 리뷰 게시판</StH3>
         <StLink to="/review">더보기</StLink>
       </StTitle>
-      <ReviewFormat isSliced={true} />
+      <ReviewFormat isSliced={true} $isMain={true} />
     </StSection>
   );
 };

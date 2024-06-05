@@ -33,13 +33,13 @@ export const StBoxSection = styled.section`
   background-color: var(--main-color);
   margin-top: 10px;
   border-radius: 10px;
-  padding: ${(props) => (props.$review ? '30px' : '20px')};
+  padding: ${(props) => (props.$isMain ? '20px' : '30px')};
   display: flex;
   flex-wrap: wrap;
-  gap: ${(props) => (props.$review ? '30px' : '20px')};
-  width: ${(props) => (props.$review ? '1000px' : 'fit-content')};
+  gap: ${(props) => (props.$isMain ? '20px' : '30px')};
+  width: ${(props) => (props.$isMain ? 'fit-content' : '1000px')};
   ${(props) =>
-    props.$review &&
+    !props.$isMain &&
     css`
       margin-left: 10px;
       margin-bottom: 30px;
@@ -100,7 +100,7 @@ export const StInfo = styled.div`
 export const StContent = styled.div`
   margin-top: 10px;
   padding: 10px;
-  border: 2px solid brown;
+  border: 3px solid var(--main-color);
   border-radius: 10px;
   min-height: ${(props) => (props.$detail ? '100px' : '16px')};
   max-height: ${(props) => (props.$detail ? 'fit-content' : '16px')};
@@ -111,6 +111,11 @@ export const StContent = styled.div`
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+    `}
+  ${(props) =>
+    props.$detail &&
+    css`
+      white-space: pre-line;
     `}
 `;
 
@@ -146,5 +151,9 @@ export const StLine = styled.div`
   padding-top: 5px;
   display: flex;
   gap: 3px;
-  justify-content: end;
+  justify-content: space-between;
+`;
+
+export const StCommentBox = styled.div`
+  display: flex;
 `;
