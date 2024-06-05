@@ -3,6 +3,7 @@ import supabase from '../../shared/supabaseClient';
 
 export const fetchInfo = createAsyncThunk('reviewInfo/fetchInfo', async () => {
   const { data, error } = await supabase.from('Review').select('*');
+
   if (error) throw error;
   return data;
 });
