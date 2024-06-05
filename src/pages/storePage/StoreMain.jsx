@@ -1,38 +1,84 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import EventComp from '../../components/StoreMain/EventComp';
-import { setGames } from '../../redux/slices/storeMainSlice/gameSlice';
+import GameApi from '../../components/StoreMain/GameApi/GameApi';
+import Banner from '../../components/StoreMain/Banner';
+import styled from 'styled-components';
+import TrendingGames from '../../components/StoreMain/TrendingGames';
+import CategorieComp from '../../components/StoreMain/CategorieComp';
+import StoreSideBar from '../../components/StoreMain/StoreSideBar/StoreSideBar';
 
-// const API_KEY = 'b003fb5d32a15ac6ef29f61cb8d3989d775ac4e8';
-// const PROXY_URL = 'https://api.allorigins.win/get?url=';
-// const API_URL = `${PROXY_URL}${encodeURIComponent(
-//   `https://www.giantbomb.com/api/games/?api_key=${API_KEY}&format=json&field_list=name,deck,image`
-// )}`;
+const StoreMainCont = styled.main`
+  width: 1400px;
+  display: flex;
+  margin: 0 auto;
+  margin-top: 50px;
+  justify-content: space-around;
+`;
+
+const StoreMapFrame = styled.div`
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin-bottom: 50px;
+`;
 
 const StoreMain = () => {
-  // const dispatch = useDispatch();
-  // const [games, setGames] = useState([]);
+  const [allGameList, setAllGameList] = useState([]);
+  const [gameListByGenres, setGameListByGenres] = useState([]);
+  const [selectedGenresName, setSelectedGenresName] = useState('Action');
+  const [showTrending, setShowTrending] = useState(true);
 
-  // useEffect(() => {
-  //   fetch(API_URL)
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       const parsedData = JSON.parse(data.contents);
-  //       dispatch(setGames(parsedData.results));
-  //     })
-  //     .catch((error) => {
-  //       console.error('Error fetching data:', error);
-  //     });
-  // }, [dispatch]);
+  useEffect(() => {
+    getAllGameList();
+    getGameListByGenresId(4);
+  }, []);
 
-  // // 첫 번째 이미지를 왼쪽 큰 이미지로, 두 번째와 세 번째 이미지를 오른쪽 작은 이미지로 사용
-  // const largeImage = games[0]?.image?.small_url;
-  // const smallImages = games.slice(1, 2).map((game) => game.image?.small_url);
+  const getAllGameList = async () => {
+    try {
+      const resp = await GameApi.getAllGames();
+      console.log(resp.data);
+      if (resp.data && resp.data.results) {
+        setAllGameList(resp.data.results);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const getGameListByGenresId = async (id) => {
+    try {
+      const resp = await GameApi.getGameListByGenreId(id);
+      if (resp.data && resp.data.results) {
+        setGameListByGenres(resp.data.results);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleCategorySelect = (genereId, name) => {
+    setSelectedGenresName(name);
+    if (genereId === null) {
+      setShowTrending(true);
+    } else {
+      getGameListByGenresId(genereId);
+      setShowTrending(false);
+    }
+  };
 
   return (
-    <div>
-      <EventComp />
-    </div>
+    <StoreMainCont>
+      <div className="store-sideBar">
+        <StoreSideBar genereId={handleCategorySelect} selectedGenresName={setSelectedGenresName} />
+      </div>
+      <StoreMapFrame>
+        {allGameList.length > 0 && <Banner gameBanner={allGameList[0]} />}
+        {showTrending ? (
+          <TrendingGames gameList={allGameList} />
+        ) : (
+          <CategorieComp gameList={gameListByGenres} selectedGenresName={selectedGenresName} />
+        )}
+      </StoreMapFrame>
+    </StoreMainCont>
   );
 };
 
