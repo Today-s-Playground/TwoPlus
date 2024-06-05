@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
 import EventComp from '../../components/StoreMain/EventComp';
-import { setGames } from '../../redux/slices/storeMainSlice/gameSlice';
 
 // const API_KEY = 'b003fb5d32a15ac6ef29f61cb8d3989d775ac4e8';
 // const PROXY_URL = 'https://api.allorigins.win/get?url=';

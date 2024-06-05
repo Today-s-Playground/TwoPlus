@@ -3,6 +3,7 @@ import StrategyFormat from '../../../components/community/StrategyFormat';
 import { StH3 } from '../../../styles/CommunityMainStyles';
 import { StInput, StSection, StReviewBox, StTextarea, StButton } from '../../../styles/ReviewStyles';
 import { addInfo } from '../../../redux/slices/questionInfoSlice';
+import CommunityLayout from '../../../shared/CommunityLayout';
 
 const Question = () => {
   const dispatch = useDispatch();
@@ -30,7 +31,7 @@ const Question = () => {
   };
 
   return (
-    <>
+    <CommunityLayout>
       <StSection>
         <StH3>질문 작성하기📝</StH3>
         <StReviewBox onSubmit={onAddHandler}>
@@ -54,7 +55,7 @@ const Question = () => {
         </StReviewBox>
       </StSection>
       <StrategyFormat isSliced={false} path="question" $detail={true} $isMain={false} />
-    </>
+    </CommunityLayout>
   );
 };
 
