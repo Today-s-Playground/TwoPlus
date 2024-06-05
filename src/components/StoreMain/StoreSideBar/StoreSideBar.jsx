@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import GameApi from '../GameApi/GameApi';
+import GameApi from '../../../api/GameApi/GameApi';
 import './StoreSideBar.css';
 import styled from 'styled-components';
 

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import GameApi from '../StoreMain/GameApi/GameApi';
+import GameApi from '../../api/GameApi/GameApi';
 
 const GameDetail = () => {
   const { id } = useParams();

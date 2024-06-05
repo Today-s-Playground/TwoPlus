@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import GameApi from '../../components/StoreMain/GameApi/GameApi';
+import GameApi from '../../api/GameApi/GameApi';
 import Banner from '../../components/StoreMain/Banner';
 import styled from 'styled-components';
 import TrendingGames from '../../components/StoreMain/TrendingGames';
