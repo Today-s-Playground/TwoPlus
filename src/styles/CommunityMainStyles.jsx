@@ -100,7 +100,7 @@ export const StInfo = styled.div`
 export const StContent = styled.div`
   margin-top: 10px;
   padding: 10px;
-  border: 2px solid brown;
+  border: 3px solid var(--main-color);
   border-radius: 10px;
   min-height: ${(props) => (props.$detail ? '100px' : '16px')};
   max-height: ${(props) => (props.$detail ? 'fit-content' : '16px')};
