@@ -1,7 +1,7 @@
 import { useDispatch } from 'react-redux';
 import StrategyFormat from '../../../components/community/StrategyFormat';
 import { StH3 } from '../../../styles/CommunityMainStyles';
-import { StInput, StSection, StReviewBox, StTextarea } from '../../../styles/ReviewStyles';
+import { StInput, StSection, StReviewBox, StTextarea, StButton } from '../../../styles/ReviewStyles';
 import { addInfo } from '../../../redux/slices/questionInfoSlice';
 
 const Question = () => {
@@ -50,7 +50,7 @@ const Question = () => {
             <br />
             <StTextarea id="content" name="content"></StTextarea>
           </label>
-          <button type="submit">작성</button>
+          <StButton type="submit">작성</StButton>
         </StReviewBox>
       </StSection>
       <StrategyFormat isSliced={false} path="question" $detail={true} $isMain={false} />

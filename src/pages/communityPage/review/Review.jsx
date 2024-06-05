@@ -1,6 +1,6 @@
 import ReviewFormat from '../../../components/community/ReviewFormat';
 import { StH3 } from '../../../styles/CommunityMainStyles';
-import { StInput, StReviewBox, StSection, StTextarea } from '../../../styles/ReviewStyles';
+import { StButton, StInput, StReviewBox, StSection, StTextarea } from '../../../styles/ReviewStyles';
 import { useDispatch } from 'react-redux';
 import { addInfo } from '../../../redux/slices/reviewInfoSlice';
 
@@ -51,8 +51,8 @@ const Review = () => {
             <br />
             <StTextarea id="content" name="content"></StTextarea>
           </label>
-          <button type="submit">작성</button>
         </StReviewBox>
+        <StButton type="submit">작성</StButton>
       </StSection>
       <ReviewFormat isSliced={false} $isMain={false} />
     </>
