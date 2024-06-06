@@ -138,7 +138,7 @@ export const StLiked = styled.img`
 `;
 
 export const StLikedBox = styled.div`
-  display: flex;
+  displaxy: flex;
   flex-direction: column;
   gap: 5px;
   justify-content: center;
@@ -157,4 +157,8 @@ export const StLine = styled.div`
 
 export const StCommentBox = styled.div`
   display: flex;
+`;
+
+export const StComment1 = styled.img`
+  width: 30px;
 `;
