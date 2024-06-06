@@ -12,7 +12,7 @@ function UserInfo() {
       if (error) {
         setFetchError(error.message);
       } else if (data.publicUrl) {
-        setUserPic(data.publicUrl);
+        setUserPic(`${data.publicUrl}?t=${new Date().getTime()}`);
       }
     };
 
@@ -35,7 +35,7 @@ function UserInfo() {
         console.error('Upload Error:', error.message);
       } else if (data) {
         const { publicUrl } = supabase.storage.from('avatars').getPublicUrl(data.path).data;
-        setUserPic(publicUrl);
+        setUserPic(`${publicUrl}?t=${new Date().getTime()}`);
       }
     }
   };
