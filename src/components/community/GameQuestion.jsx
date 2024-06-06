@@ -5,10 +5,10 @@ const GameQuestion = () => {
   return (
     <StSection>
       <StTitle>
-        <StH3>🙋‍♂️게임 질문 게시판🙋‍♀️</StH3>
+        <StH3>🙋‍♂️ 게임 질문 게시판 🙋‍♀️</StH3>
         <StLink to="/question">더보기</StLink>
       </StTitle>
-      <StrategyFormat isSliced={true} $isMain={true} path="question" />
+      <StrategyFormat isSliced={true} $isMain={true} $show={false} path="question" />
     </StSection>
   );
 };
