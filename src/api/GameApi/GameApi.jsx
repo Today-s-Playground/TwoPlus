@@ -9,10 +9,14 @@ const getGenreList = () => axiosCreate.get('/genres?key=' + key);
 const getAllGames = () => axiosCreate.get('/games?key=' + key);
 const getGameListByGenreId = (id) => axiosCreate.get('/games?key=' + key + '&genres=' + id);
 const getGameById = (id) => axiosCreate.get('/games/' + id + '?key=' + key);
+const getGameScreenshots = (id) => axiosCreate.get('/games/' + id + '/screenshots?key=' + key);
+const getGamePrice = (id) => axiosCreate.get('/games/' + id + '/marketplace?key=' + key);
 
 export default {
   getGenreList,
   getAllGames,
   getGameListByGenreId,
-  getGameById
+  getGameById,
+  getGameScreenshots,
+  getGamePrice
 };
