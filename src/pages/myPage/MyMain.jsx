@@ -12,7 +12,6 @@ import { fetchReviewComment } from '../../redux/slices/reviewCommentSlice';
 import { fetchStrategyComment } from './../../redux/slices/strategyCommentSlice';
 import { fetchQuestionComment } from '../../redux/slices/questionCommentSlice';
 import { useNavigate } from 'react-router-dom';
-import MyPosts from './MyPosts';
 
 const MyMain = () => {
   const navigate = useNavigate();
@@ -42,7 +41,7 @@ const MyMain = () => {
   return (
     <Main>
       <ProfileSection />
-      <UserInfo />
+      <UserInfo userId={user ? user.id : null} />
       {/* 가장 많이 플레이한 게임 */}
       <GameSection>
         <div className="gamePic">
@@ -65,13 +64,13 @@ const MyMain = () => {
       {/* 나의 정보 */}
       <InforSection>
         <div>
-          <InfoCard title={'찜한 게임 목록'} />
+          <InfoCard title={'찜한 게임 목록'} number={0} />
         </div>
-        <div onClick={() => navigate('/myposts')}>
+        <div onClick={() => navigate('/myposts')} className="my-posts">
           <InfoCard title={'내가 쓴 글'} number={myPosts.length} />
         </div>
-        <div onClick={() => navigate('/mycomments')}>
-          <InfoCard title={'내가 쓴 댓글'} number={myComments.length} />
+        <div onClick={() => navigate('/mycomments')} className="my-comments">
+          <InfoCard title={'내가 쓴 댓글'} number={myComments.length} className="my-comments" />
         </div>
       </InforSection>
       {/* 구매 목록 */}

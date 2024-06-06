@@ -5,7 +5,6 @@ import { StButton2, StButtonBox, StComment, StLi, StLiBottom, StLiTop, StUl } fr
 
 const QuestionComment = () => {
   const data = useFetch('questionComment', fetchQuestionComment);
-  console.log(data);
 
   return (
     <StUl>

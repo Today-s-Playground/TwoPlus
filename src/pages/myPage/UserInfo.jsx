@@ -1,23 +1,42 @@
-import React, { useState, useEffect } from 'react';
-import { EmailInput, UserInfor } from '../../styles/MyMainStyles';
+import React, { useState, useEffect, useContext } from 'react';
+import { EmailDiv, UserInfor } from '../../styles/MyMainStyles';
 import supabase from '../../shared/supabaseClient';
+import { UserContext } from '../../api/UserProvider';
 
-function UserInfo() {
-  const [userPic, setUserPic] = useState('https://ifh.cc/g/dgyJCA.png');
-  const [fetchError, setFetchError] = useState(null);
+function UserInfo({ userId }) {
+  const defaultUserPic = 'https://ifh.cc/g/dgyJCA.png';
+  const [userPic, setUserPic] = useState(defaultUserPic);
+  const { user } = useContext(UserContext);
 
   useEffect(() => {
     const fetchImageUrl = async () => {
-      const { data, error } = await supabase.storage.from('avatars').getPublicUrl('public/avatar1.png');
+      if (!userId || !user) {
+        setUserPic(defaultUserPic);
+        return;
+      }
+
+      const { data, error } = await supabase.storage.from('avatars').getPublicUrl(`public/avatar_${userId}.png`);
       if (error) {
-        setFetchError(error.message);
-      } else if (data.publicUrl) {
-        setUserPic(`${data.publicUrl}?t=${new Date().getTime()}`);
+        console.error('Fetch Image Error:', error.message);
+        setUserPic(defaultUserPic);
+        return;
+      }
+
+      try {
+        const response = await fetch(`${data.publicUrl}?t=${new Date().getTime()}`, { method: 'HEAD' });
+        if (response.ok) {
+          setUserPic(`${data.publicUrl}?t=${new Date().getTime()}`);
+        } else {
+          setUserPic(defaultUserPic);
+        }
+      } catch (error) {
+        console.error('URL Test Error:', error.message);
+        setUserPic(defaultUserPic);
       }
     };
 
     fetchImageUrl();
-  }, []);
+  }, [userId, user]);
 
   const handleFileChange = async (e) => {
     const file = e.target.files[0];
@@ -30,7 +49,7 @@ function UserInfo() {
 
       const { data, error } = await supabase.storage
         .from('avatars')
-        .upload('public/avatar1.png', file, { upsert: true });
+        .upload(`public/avatar_${userId}.png`, file, { upsert: true });
       if (error) {
         console.error('Upload Error:', error.message);
       } else if (data) {
@@ -44,10 +63,10 @@ function UserInfo() {
     <UserInfor>
       <div className="userBox">
         <div className="userName">
-          <div className="nickName">닉네임</div>
-          <p className="userInfor">실명, 🇰🇷 korea, Republic of</p>
+          <div className="nickName">{user ? user.user_metadata.username : <div></div>}</div>
+          <p className="userInfor">🇰🇷 korea, Republic of</p>
         </div>
-        <EmailInput placeholder="이메일을 입력하세요 >" />
+        <EmailDiv>{user ? user.user_metadata.email : <EmailDiv> </EmailDiv>}</EmailDiv>
       </div>
       <div className="profileBox">
         <img src={userPic} alt="이미지" className="profilePic" />

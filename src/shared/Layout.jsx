@@ -1,5 +1,7 @@
-import { useContext, useState } from 'react';
-import { Link } from 'react-router-dom';
+
+import { useContext } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
 import { UserContext } from '../api/UserProvider';
 import { Search, SearchContainer, StFooter, StHeader } from '../styles/LayoutStyles';
 import axios from 'axios';
@@ -39,14 +41,49 @@ const Layout = ({ children }) => {
     }
   };
 
+
+const StFooter = styled.footer`
+  width: 100%;
+  height: 50px;
+  display: flex;
+  background-color: var(--main-color);
+  color: white;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  flex-direction: column;
+  gap: 1rem;
+`;
+
+const Layout = ({ children }) => {
+  const { user, signOutUser } = useContext(UserContext);
+  const navigate = useNavigate();
+
+  const onClicktoLogin = () => {
+    alert('로그인 후 이용해주세요!');
+    navigate('/login');
+  };
+  
   return (
     <>
       <StHeader>
         <Link to="/">👾 Today’s Playground 🎮</Link>
         <div className="section">
-          <Link to="/">Store</Link>
-          <Link to="/community">Community</Link>
-          <Link to="/my">Mypage</Link>
+          <Link to="/" className="store-name">
+            Store
+          </Link>
+          <Link to="/community" className="community-name">
+            Community
+          </Link>
+          {user ? (
+            <Link to="/my" className="mypage-name">
+              Mypage
+            </Link>
+          ) : (
+            <div onClick={onClicktoLogin} className="mypage-name">
+              MyPage
+            </div>
+          )}
         </div>
         <div className="login">
           <form onSubmit={handleSearchSubmit}>
@@ -70,7 +107,9 @@ const Layout = ({ children }) => {
           )}
           <div> |</div>
           {user ? (
-            <span className="login-name">{user.user_metadata.username} 님</span>
+            <span className="login-name" onClick={() => navigate('/my')}>
+              {user.user_metadata.username} 님
+            </span>
           ) : (
             <Link to="/signup" className="signup-name">
               회원가입

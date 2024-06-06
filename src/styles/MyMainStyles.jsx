@@ -65,13 +65,22 @@ export const UserInfor = styled.section`
   }
 `;
 
-export const EmailInput = styled.input`
+export const DefaultImageWrapper = styled.div`
+  position: relative;
+  z-index: 1;
+`;
+
+export const EmailDiv = styled.div`
+  display: flex;
+  justify-content: center;
   width: 250px;
   height: 45px;
   border-radius: 50px;
   text-align: center;
   border: none;
   outline: none;
+  background-color: white;
+  align-items: center;
 `;
 
 export const GameSection = styled.section`
@@ -129,6 +138,11 @@ export const InforSection = styled.section`
   display: flex;
   justify-content: space-around;
   width: 100%;
+
+  .my-posts,
+  .my-comments {
+    cursor: pointer;
+  }
 `;
 
 export const InforState = styled.div`

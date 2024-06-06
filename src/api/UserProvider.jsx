@@ -60,13 +60,12 @@ const UserProvider = ({ children }) => {
     });
     console.log('signin: ', { data, error });
 
-    const userName = await userDataUserName();
-
-    if (data) {
+    if (error) {
+      alert(`로그인 실패하였습니다. 아이디와 비밀번호를 확인해주세요.`);
+    } else if (data) {
+      const userName = await userDataUserName(); // 이 부분은 로그인 성공 후 실행됩니다.
       alert(`${userName}님 Today's playground에 오신 걸 환영합니다!`);
       navigate('/');
-    } else if (error) {
-      alert(`로그인 실패하였습니다. ${error.message}`);
     }
   };
 

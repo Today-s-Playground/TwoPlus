@@ -3,14 +3,14 @@
 }
 
 .community-frame {
-  width: 220px;
+  width: 200px;
   height: 300px;
-  padding: 20px;
+  padding: 30px;
   display: flex;
   align-items: center;
   flex-direction: column;
   border: 1px solid var(--main-color);
-  border-radius: 10px;
+  border-radius: 20px;
   margin: 2rem 1rem;
   padding-bottom: 50px;
   position: sticky;

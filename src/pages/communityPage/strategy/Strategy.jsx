@@ -6,27 +6,35 @@ import { StInput, StSection, StReviewBox, StTextarea, StButton } from '../../../
 import { useContext } from 'react';
 import { UserContext } from '../../../api/UserProvider';
 import CommunityLayout from '../../../shared/CommunityLayout';
+import { useNavigate } from 'react-router-dom';
 
 const Strategy = () => {
   const { user } = useContext(UserContext);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const onAddHandler = (e) => {
-    e.preventDefault();
+    if (user) {
+      e.preventDefault();
 
-    const data = new FormData(e.target);
-    const gamename = data.get('gamename');
-    const title = data.get('title');
-    const content = data.get('content');
-    const username = user.user_metadata.username;
+      const data = new FormData(e.target);
+      const gamename = data.get('gamename');
+      const title = data.get('title');
+      const content = data.get('content');
+      const username = user.user_metadata.username;
 
-    if (!gamename.trim()) return alert('게임 이름을 입력해주세요.');
-    else if (!title.trim()) return alert('제목을 입력해주세요.');
-    else if (!content.trim()) return alert('내용을 입력해주세요.');
-    else {
-      const newStrategyInfo = { gamename, title, username, content };
-      dispatch(addStrategyInfo(newStrategyInfo));
-      alert('게임 공략법이 등록되었습니다.');
+      if (!gamename.trim()) return alert('게임 이름을 입력해주세요.');
+      else if (!title.trim()) return alert('제목을 입력해주세요.');
+      else if (!content.trim()) return alert('내용을 입력해주세요.');
+      else {
+        const newStrategyInfo = { gamename, title, username, content };
+        dispatch(addStrategyInfo(newStrategyInfo));
+        alert('게임 공략법이 등록되었습니다.');
+      }
+    } else {
+      e.preventDefault();
+      alert('로그인 후 이용해주세요!');
+      navigate('/login');
     }
 
     e.target.reset();
