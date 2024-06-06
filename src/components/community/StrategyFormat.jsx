@@ -19,6 +19,8 @@ import { StButtonBox } from './../../styles/StrategyFormatStyles';
 import useHandler from '../../hooks/useHandler';
 import Loading from '../../shared/Loading';
 import { UserContext } from '../../api/UserProvider';
+import { fetchStrategyComment } from './../../redux/slices/strategyCommentSlice';
+import { fetchQuestionComment } from './../../redux/slices/questionCommentSlice';
 
 const StrategyFormat = ({ isSliced, path, $detail, $isMain, $show }) => {
   const { user } = useContext(UserContext);
@@ -35,6 +37,11 @@ const StrategyFormat = ({ isSliced, path, $detail, $isMain, $show }) => {
   const { onToggleHandler, onDeleteHandler } = useHandler(
     $show,
     path === 'strategy' ? deleteStrategyInfo : deleteQuestionInfo
+  );
+
+  const commentData = useFetch(
+    path === 'strategy' ? 'strategyComment' : 'questionComment',
+    path === 'strategy' ? fetchStrategyComment : fetchQuestionComment
   );
 
   const onUpdateHandler = (e, id) => {
@@ -61,7 +68,7 @@ const StrategyFormat = ({ isSliced, path, $detail, $isMain, $show }) => {
         data.map((info, index) => (
           <StBox2 key={info.id} onClick={() => navigate(`/${path}/${info.id}`)}>
             <StImg src="https://cdn.pixabay.com/photo/2018/03/30/15/11/deer-3275594_1280.jpg" alt="" />
-            <p>🎮{info.game_name}</p>
+            <p>🎮 {info.game_name}</p>
             <p>{info.title}</p>
             <p>{info.user_name}</p>
             <StContent $detail={$detail} onClick={onToggleHandler}>
@@ -91,7 +98,7 @@ const StrategyFormat = ({ isSliced, path, $detail, $isMain, $show }) => {
             <StBoxBottom>
               <p>{info.created_at.split('T')[0]}</p>
               <StComment>
-                <p>{info.comment_amount}</p>
+                <p>{commentData.length}</p>
                 <StComment1 src="../../../../src/images/comment.png" alt="" />
               </StComment>
             </StBoxBottom>
