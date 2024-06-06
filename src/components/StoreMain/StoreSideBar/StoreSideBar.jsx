@@ -40,7 +40,6 @@ function StoreSideBar({ genereId, selectedGenresName }) {
 
   return (
     <CategorieListFrame>
-      <h2 className="title">Categorie</h2>
       <div className="categorieList-frame">
         <div
           className="AllCategorie"

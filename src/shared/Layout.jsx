@@ -95,9 +95,21 @@ const Layout = ({ children }) => {
       <StHeader>
         <Link to="/">👾 Today’s Playground 🎮</Link>
         <div className="section">
-          <Link to="/">Store</Link>
-          <Link to="/community">Community</Link>
-          {user ? <Link to="/my">Mypage</Link> : <div onClick={onClicktoLogin}>MyPage</div>}
+          <Link to="/" className="store-name">
+            Store
+          </Link>
+          <Link to="/community" className="community-name">
+            Community
+          </Link>
+          {user ? (
+            <Link to="/my" className="mypage-name">
+              Mypage
+            </Link>
+          ) : (
+            <div onClick={onClicktoLogin} className="mypage-name">
+              MyPage
+            </div>
+          )}
         </div>
         <div className="login">
           <SearchContainer>
