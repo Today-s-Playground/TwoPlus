@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { UserContext } from '../api/UserProvider';
 
@@ -80,16 +80,36 @@ const StFooter = styled.footer`
   flex-direction: column;
   gap: 1rem;
 `;
+
 const Layout = ({ children }) => {
   const { user, signOutUser } = useContext(UserContext);
+  const navigate = useNavigate();
+
+  const onClicktoLogin = () => {
+    alert('로그인 후 이용해주세요!');
+    navigate('/login');
+  };
+
   return (
     <>
       <StHeader>
         <Link to="/">👾 Today’s Playground 🎮</Link>
         <div className="section">
-          <Link to="/">Store</Link>
-          <Link to="/community">Community</Link>
-          <Link to="/my">Mypage</Link>
+          <Link to="/" className="store-name">
+            Store
+          </Link>
+          <Link to="/community" className="community-name">
+            Community
+          </Link>
+          {user ? (
+            <Link to="/my" className="mypage-name">
+              Mypage
+            </Link>
+          ) : (
+            <div onClick={onClicktoLogin} className="mypage-name">
+              MyPage
+            </div>
+          )}
         </div>
         <div className="login">
           <SearchContainer>
