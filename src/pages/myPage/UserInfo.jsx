@@ -3,14 +3,14 @@ import { EmailDiv, UserInfor } from '../../styles/MyMainStyles';
 import supabase from '../../shared/supabaseClient';
 import { UserContext } from '../../api/UserProvider';
 
-function UserInfo() {
+function UserInfo({ userId }) {
   const [userPic, setUserPic] = useState('https://ifh.cc/g/dgyJCA.png');
   const [fetchError, setFetchError] = useState(null);
   const { user } = useContext(UserContext);
 
   useEffect(() => {
     const fetchImageUrl = async () => {
-      const { data, error } = await supabase.storage.from('avatars').getPublicUrl('public/avatar1.png');
+      const { data, error } = await supabase.storage.from('avatars').getPublicUrl(`public/avatar_${userId}.png`);
       if (error) {
         setFetchError(error.message);
       } else if (data.publicUrl) {
@@ -19,7 +19,7 @@ function UserInfo() {
     };
 
     fetchImageUrl();
-  }, []);
+  }, [userId]);
 
   const handleFileChange = async (e) => {
     const file = e.target.files[0];
@@ -32,7 +32,7 @@ function UserInfo() {
 
       const { data, error } = await supabase.storage
         .from('avatars')
-        .upload('public/avatar1.png', file, { upsert: true });
+        .upload(`public/avatar_${userId}.png`, file, { upsert: true });
       if (error) {
         console.error('Upload Error:', error.message);
       } else if (data) {

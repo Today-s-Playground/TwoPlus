@@ -41,7 +41,7 @@ const MyMain = () => {
   return (
     <Main>
       <ProfileSection />
-      <UserInfo />
+      <UserInfo userId={user ? user.id : null} />
       {/* 가장 많이 플레이한 게임 */}
       <GameSection>
         <div className="gamePic">
