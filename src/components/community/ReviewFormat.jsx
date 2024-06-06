@@ -9,7 +9,8 @@ import {
   StLikedBox,
   StLine,
   StBoxSection,
-  StCommentBox
+  StCommentBox,
+  StComment1
 } from './../../styles/CommunityMainStyles';
 import { deleteReviewInfo, fetchReviewInfo, updateReviewInfo } from '../../redux/slices/reviewInfoSlice';
 import './../../styles/Loading.css';
@@ -95,8 +96,7 @@ const ReviewFormat = ({ isSliced, $isMain, $detail, $show }) => {
                 <p>{info.created_at.split('T')[0]}</p>
               </div>
               <StCommentBox>
-                <p>(댓글 개수)</p>
-                <p>(댓글 아이콘)</p>
+                <StComment1 src="../../../../src/images/comment.png" alt="" />
               </StCommentBox>
             </StLine>
           </StBox>
