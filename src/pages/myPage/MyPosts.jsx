@@ -5,6 +5,7 @@ import { fetchReviewInfo } from '../../redux/slices/reviewInfoSlice';
 import { fetchStrategyInfo } from './../../redux/slices/strategyInfoSlice';
 import { fetchQuestionInfo } from './../../redux/slices/questionInfoSlice';
 import '../../styles/MyPageCss.css';
+import moment from 'moment';
 
 const MyPosts = () => {
   const { user } = useContext(UserContext);
@@ -22,16 +23,24 @@ const MyPosts = () => {
   }
   console.log(myPosts);
 
+  const formatDate = (dateSt) => {
+    const date = moment(dateSt);
+    if (date.isValid()) {
+      return date.format('YYYY-MM-DD HH:mm');
+    }
+  };
+
   return (
     <div className="mypost-container">
       <h2 className="my-user-name">
         {user ? user.user_metadata.username : ''} 님이 👾 Today's PlayGround 🎮 에서 신나게 쓰신 글
       </h2>
       <ul className="ul-container">
-        {myPosts.map(({ game_name, star_score, content, user_name }, index) => (
+        {myPosts.map(({ game_name, created_at, star_score, content, user_name }, index) => (
           <li key={index} className="my-user-post1">
             <div className="my-user-post2">
               <span> {game_name}</span>
+              <span> {formatDate(created_at)} </span>
               <span> ㅡ </span>
               {star_score ? (
                 <span>
