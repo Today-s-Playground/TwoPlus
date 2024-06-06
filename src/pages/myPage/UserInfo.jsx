@@ -19,9 +19,18 @@ function UserInfo({ userId }) {
       if (error) {
         console.error('Fetch Image Error:', error.message);
         setUserPic(defaultUserPic);
-      } else if (data.publicUrl) {
-        setUserPic(`${data.publicUrl}?t=${new Date().getTime()}`);
-      } else {
+        return;
+      }
+
+      try {
+        const response = await fetch(`${data.publicUrl}?t=${new Date().getTime()}`, { method: 'HEAD' });
+        if (response.ok) {
+          setUserPic(`${data.publicUrl}?t=${new Date().getTime()}`);
+        } else {
+          setUserPic(defaultUserPic);
+        }
+      } catch (error) {
+        console.error('URL Test Error:', error.message);
         setUserPic(defaultUserPic);
       }
     };
