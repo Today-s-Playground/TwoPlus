@@ -4,14 +4,16 @@ import './../../styles/Loading.css';
 import useFetch from '../../hooks/useFetch';
 import { deleteStrategyInfo, fetchStrategyInfo, updateStrategyInfo } from './../../redux/slices/strategyInfoSlice';
 import { deleteQuestionInfo, fetchQuestionInfo, updateQuestionInfo } from './../../redux/slices/questionInfoSlice';
-import { useRef } from 'react';
+import { useContext, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { StTextarea } from '../../styles/ReviewFormatStyles';
 import { StButtonBox } from './../../styles/StrategyFormatStyles';
 import useHandler from '../../hooks/useHandler';
 import Loading from '../../shared/Loading';
+import { UserContext } from '../../api/UserProvider';
 
 const StrategyFormat = ({ isSliced, path, $detail, $isMain, $show }) => {
+  const { user } = useContext(UserContext);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const textareaRefs = useRef([]);
@@ -21,6 +23,7 @@ const StrategyFormat = ({ isSliced, path, $detail, $isMain, $show }) => {
     path === 'strategy' ? fetchStrategyInfo : fetchQuestionInfo,
     isSliced
   );
+  console.log(data);
   const { onToggleHandler, onDeleteHandler } = useHandler(
     $show,
     path === 'strategy' ? deleteStrategyInfo : deleteQuestionInfo
@@ -28,12 +31,18 @@ const StrategyFormat = ({ isSliced, path, $detail, $isMain, $show }) => {
 
   const onUpdateHandler = (e, id) => {
     e.stopPropagation();
-    let content = null;
-    textareaRefs.current.forEach((ref) => {
-      if (ref.id == id) content = ref.value;
-    });
-    dispatch(path === 'strategy' ? updateStrategyInfo({ id, content }) : updateQuestionInfo({ id, content }));
-    alert('수정이 완료되었습니다.');
+    if (user) {
+      let content = null;
+      textareaRefs.current.forEach((ref) => {
+        if (ref.id == id) content = ref.value;
+      });
+      dispatch(path === 'strategy' ? updateStrategyInfo({ id, content }) : updateQuestionInfo({ id, content }));
+      alert('수정이 완료되었습니다.');
+    } else {
+      alert('로그인 후 이용해주세요!');
+      navigate('/login');
+      return;
+    }
   };
 
   return (

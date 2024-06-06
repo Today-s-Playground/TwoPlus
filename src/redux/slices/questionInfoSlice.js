@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import supabase from '../../shared/supabaseClient';
 
 export const fetchQuestionInfo = createAsyncThunk('questionInfo/fetchQuestionInfo', async () => {
-  const { data, error } = await supabase.from('Question').select('*');
+  const { data, error } = await supabase.from('Question').select('*').order('created_at', { ascending: false });
   if (error) throw error;
   return data;
 });
@@ -16,7 +16,8 @@ export const addQuestionInfo = createAsyncThunk('questionInfo/addQuestionInfo', 
       user_name: action.username,
       content: action.content
     })
-    .select('*');
+    .select('*')
+    .order('created_at', { ascending: false });
   if (error) throw error;
   return data;
 });

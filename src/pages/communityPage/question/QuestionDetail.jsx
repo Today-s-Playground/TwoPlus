@@ -21,7 +21,7 @@ import QuestionComment from '../../../components/community/QuestionComment';
 
 const QuestionDetail = () => {
   const { onAddHandler } = useDetailHandler(addQuestionComment);
-  const data = useFetch('strategyInfo', fetchQuestionInfo);
+  const data = useFetch('questionInfo', fetchQuestionInfo);
   const param = useParams();
   const filteredData = data.find((info) => info.id === parseInt(param.id));
 
