@@ -26,7 +26,19 @@ const Colunm = styled.div`
 const Title = styled.h1`
   width: 80%;
   text-align: center;
+  margin-top: 15px;
+`;
+
+const InfoFrame = styled.div`
+  width: 80%;
   margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+`;
+
+const Info = styled.h1`
+  width: 100%;
+  text-align: center;
 `;
 
 const CardStyle = styled.div`
@@ -75,6 +87,10 @@ const CategorieComp = ({ gameList, selctedGenresName }) => {
                 <GenreItem key={idx}># {genre.name}</GenreItem>
               ))}
             </GenreContainer>
+            <InfoFrame>
+              <Info>평점 : {item.rating}</Info>
+              <Info>출시일 : {item.released}</Info>
+            </InfoFrame>
           </CardStyle>
         ))}
       </Colunm>

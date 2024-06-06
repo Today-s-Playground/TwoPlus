@@ -22,11 +22,14 @@ function UserInfo({ userId }) {
         return;
       }
 
+      const imageUrl = data.publicUrl;
+
       try {
-        const response = await fetch(`${data.publicUrl}?t=${new Date().getTime()}`, { method: 'HEAD' });
+        const response = await fetch(imageUrl, { method: 'HEAD' });
         if (response.ok) {
-          setUserPic(`${data.publicUrl}?t=${new Date().getTime()}`);
+          setUserPic(`${imageUrl}?t=${new Date().getTime()}`);
         } else {
+          console.error('Image URL is not accessible:', response.statusText);
           setUserPic(defaultUserPic);
         }
       } catch (error) {

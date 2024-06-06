@@ -10,11 +10,6 @@ import { useSelector } from 'react-redux';
 const Layout = ({ children }) => {
   const { user, signOutUser } = useContext(UserContext);
   const navigate = useNavigate();
-
-  // const [gameInput, setGameInput] = useState('');
-  // const [searchResults, setSearchResults] = useState([]);
-  //1. redux 전역 상태로 관리 (초기값 빈 배열)
-  // 2.
   const dispatch = useDispatch();
   const { searchInput } = useSelector((state) => state.search);
 
@@ -26,21 +21,26 @@ const Layout = ({ children }) => {
   const getValue = (e) => {
     dispatch(setSearchInput(e.target.value.toLowerCase()));
   };
-  // const getValue = (e) => {
-  //   setGameInput(e.target.value.toLowerCase());
-  // };
+
   console.log(searchInput);
+
   const handleSearchSubmit = async (e) => {
     e.preventDefault();
     try {
       const response = await axios.get(
         `https://api.rawg.io/api/games?key=cb6e513d181149ba97231f7307069426&search=${searchInput}`
       );
-      // console.log(response.data.results);
-      // setSearchResults(response.data.results);
-      dispatch(setSearchResults(response.data.results));
+      const filteredResults = response.data.results.filter((game) => game.name.toLowerCase().includes(searchInput));
+      dispatch(setSearchResults(filteredResults));
+      dispatch(setSearchInput(''));
     } catch (error) {
       console.error('Error fetching search results:', error);
+    }
+  };
+
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      handleSearchSubmit(e);
     }
   };
 
@@ -67,7 +67,7 @@ const Layout = ({ children }) => {
         </div>
         <div className="login">
           <SearchContainer>
-            <Search placeholder="검색" value={searchInput} onChange={getValue} />
+            <Search placeholder="검색" value={searchInput} onChange={getValue} onKeyPress={handleKeyPress} />
             <img
               src="https://www.freeiconspng.com/uploads/search-icon-png-21.png"
               alt="searchIcon"
