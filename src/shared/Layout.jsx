@@ -82,6 +82,7 @@ const StFooter = styled.footer`
 `;
 const Layout = ({ children }) => {
   const { user, signOutUser } = useContext(UserContext);
+  console.log(user);
   return (
     <>
       <StHeader>
