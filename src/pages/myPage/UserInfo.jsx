@@ -4,22 +4,39 @@ import supabase from '../../shared/supabaseClient';
 import { UserContext } from '../../api/UserProvider';
 
 function UserInfo({ userId }) {
-  const [userPic, setUserPic] = useState('https://ifh.cc/g/dgyJCA.png');
-  const [fetchError, setFetchError] = useState(null);
+  const defaultUserPic = 'https://ifh.cc/g/dgyJCA.png';
+  const [userPic, setUserPic] = useState(defaultUserPic);
   const { user } = useContext(UserContext);
 
   useEffect(() => {
     const fetchImageUrl = async () => {
+      if (!userId || !user) {
+        setUserPic(defaultUserPic);
+        return;
+      }
+
       const { data, error } = await supabase.storage.from('avatars').getPublicUrl(`public/avatar_${userId}.png`);
       if (error) {
-        setFetchError(error.message);
-      } else if (data.publicUrl) {
-        setUserPic(`${data.publicUrl}?t=${new Date().getTime()}`);
+        console.error('Fetch Image Error:', error.message);
+        setUserPic(defaultUserPic);
+        return;
+      }
+
+      try {
+        const response = await fetch(`${data.publicUrl}?t=${new Date().getTime()}`, { method: 'HEAD' });
+        if (response.ok) {
+          setUserPic(`${data.publicUrl}?t=${new Date().getTime()}`);
+        } else {
+          setUserPic(defaultUserPic);
+        }
+      } catch (error) {
+        console.error('URL Test Error:', error.message);
+        setUserPic(defaultUserPic);
       }
     };
 
     fetchImageUrl();
-  }, [userId]);
+  }, [userId, user]);
 
   const handleFileChange = async (e) => {
     const file = e.target.files[0];
