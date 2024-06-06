@@ -53,7 +53,7 @@ export const StBox = styled.div`
   background-color: white;
   border-radius: 10px;
   padding: 10px;
-  width: ${(props) => (props.$detail ? '800px' : '440px')};
+  width: ${(props) => (props.$detail ? '1000px' : '440px')};
   cursor: ${(props) => (props.$detail ? 'default' : 'pointer')};
   &:hover {
     outline: ${(props) => (props.$detail ? '' : '5px solid var(--hover-color)')};
@@ -93,8 +93,7 @@ export const StInfo = styled.div`
   flex-direction: column;
   gap: 10px;
   justify-content: center;
-  margin-right: 20px;
-  width: 180px;
+  width: ${(props) => (props.$detail ? '600px' : '180px')};
 `;
 
 export const StContent = styled.div`
@@ -106,17 +105,11 @@ export const StContent = styled.div`
   min-height: ${(props) => (props.$detail ? '100px' : '22px')};
   max-height: ${(props) => (props.$detail ? 'fit-content' : '22px')};
   width: 92%;
-  /* ${(props) =>
-    !props.$detail &&
-    css`
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    `} */
   ${(props) =>
     props.$detail &&
     css`
       white-space: pre-line;
+      line-height: 1.5;
     `}
 `;
 

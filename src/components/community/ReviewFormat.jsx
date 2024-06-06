@@ -5,8 +5,6 @@ import {
   StImg,
   StInfo,
   StContent,
-  StLiked,
-  StLikedBox,
   StLine,
   StBoxSection,
   StCommentBox,
@@ -21,6 +19,7 @@ import { useContext, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import Loading from '../../shared/Loading';
 import { UserContext } from '../../api/UserProvider';
+import { fetchReviewComment } from '../../redux/slices/reviewCommentSlice';
 
 const ReviewFormat = ({ isSliced, $isMain, $detail, $show }) => {
   const { user } = useContext(UserContext);
@@ -30,6 +29,8 @@ const ReviewFormat = ({ isSliced, $isMain, $detail, $show }) => {
 
   const data = useFetch('reviewInfo', fetchReviewInfo, isSliced);
   const { onToggleHandler, onDeleteHandler } = useHandler($show, deleteReviewInfo);
+
+  const commentData = useFetch('reviewComment', fetchReviewComment);
 
   const onUpdateHandler = (e, id) => {
     e.stopPropagation();
@@ -57,15 +58,10 @@ const ReviewFormat = ({ isSliced, $isMain, $detail, $show }) => {
             <StBoxTop>
               <StImg src="https://cdn.pixabay.com/photo/2018/03/30/15/11/deer-3275594_1280.jpg" alt="" />
               <StInfo>
-                <p>🎮{info.game_name}</p>
-                <p>⭐️{info.star_score}</p>
+                <p>🎮 {info.game_name}</p>
+                <p>⭐️ {info.star_score}</p>
                 <p>{info.user_name}</p>
               </StInfo>
-              <StLikedBox>
-                {/* <p>(좋아요 아이콘)</p> */}
-                <StLiked src="../../../../src/images/liked.png" alt="" />
-                <p>{info.liked_amount}</p>
-              </StLikedBox>
             </StBoxTop>
             <StContent $detail={$detail} onClick={onToggleHandler}>
               <StTextarea
@@ -96,6 +92,7 @@ const ReviewFormat = ({ isSliced, $isMain, $detail, $show }) => {
                 <p>{info.created_at.split('T')[0]}</p>
               </div>
               <StCommentBox>
+                <p>{commentData.length}</p>
                 <StComment1 src="../../../../src/images/comment.png" alt="" />
               </StCommentBox>
             </StLine>
