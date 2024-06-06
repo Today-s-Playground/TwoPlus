@@ -5,6 +5,7 @@ import questionInfoSlice from '../slices/questionInfoSlice';
 import reviewCommentSlice from '../slices/reviewCommentSlice';
 import strategyCommentSlice from '../slices/strategyCommentSlice';
 import questionCommentSlice from '../slices/questionCommentSlice';
+import searchReducer from '../slices/searchSlice';
 
 const store = configureStore({
   reducer: {
@@ -13,7 +14,8 @@ const store = configureStore({
     questionInfo: questionInfoSlice,
     reviewComment: reviewCommentSlice,
     strategyComment: strategyCommentSlice,
-    questionComment: questionCommentSlice
+    questionComment: questionCommentSlice,
+    search: searchReducer
   }
 });
 
