@@ -24,12 +24,12 @@ const Router = () => {
         <Layout>
           <Routes>
             {/* 홈 페이지(메인 페이지) 경로 설정 */}
-            <Route path="/" element={<Home />} />
+            {/* <Route path="/" element={<Home />} /> */}
             <Route path="/signup" element={<SignUp />} />
             <Route path="/login" element={<Login />} />
 
             {/* 스토어 페이지 경로 설정 */}
-            <Route path="/store" element={<StoreMain />} />
+            <Route path="/" element={<StoreMain />} />
             <Route path="/game/:id" element={<GameDetail />} />
 
             {/* 커뮤니티 페이지 경로 설정 */}
