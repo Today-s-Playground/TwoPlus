@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import TrendingGames from '../../components/StoreMain/TrendingGames';
 import CategorieComp from '../../components/StoreMain/CategorieComp';
 import StoreSideBar from '../../components/StoreMain/StoreSideBar/StoreSideBar';
+import { useSelector } from 'react-redux';
 
 const StoreMainCont = styled.main`
   width: 1400px;
@@ -26,11 +27,18 @@ const StoreMain = () => {
   const [gameListByGenres, setGameListByGenres] = useState([]);
   const [selectedGenresName, setSelectedGenresName] = useState('Action');
   const [showTrending, setShowTrending] = useState(true);
+  const [filteredGameList, setFilteredGameList] = useState([]);
+
+  const searchResults = useSelector((state) => state.search.searchResults);
 
   useEffect(() => {
     getAllGameList();
     getGameListByGenresId(4);
   }, []);
+
+  useEffect(() => {
+    setFilteredGameList(searchResults.length > 0 ? searchResults : allGameList);
+  }, [searchResults, allGameList]);
 
   const getAllGameList = async () => {
     try {
@@ -59,9 +67,11 @@ const StoreMain = () => {
     setSelectedGenresName(name);
     if (genereId === null) {
       setShowTrending(true);
+      setFilteredGameList(searchResults.length > 0 ? searchResults : allGameList);
     } else {
       getGameListByGenresId(genereId);
       setShowTrending(false);
+      setFilteredGameList(gameListByGenres);
     }
   };
 
@@ -71,11 +81,11 @@ const StoreMain = () => {
         <StoreSideBar genereId={handleCategorySelect} selectedGenresName={setSelectedGenresName} />
       </div>
       <StoreMapFrame>
-        {allGameList.length > 0 && <Banner gameBanner={allGameList[0]} />}
+        {filteredGameList.length > 0 && <Banner gameBanner={filteredGameList[0]} />}
         {showTrending ? (
-          <TrendingGames gameList={allGameList} />
+          <TrendingGames gameList={filteredGameList} />
         ) : (
-          <CategorieComp gameList={gameListByGenres} selectedGenresName={selectedGenresName} />
+          <CategorieComp gameList={filteredGameList} selectedGenresName={selectedGenresName} />
         )}
       </StoreMapFrame>
     </StoreMainCont>
