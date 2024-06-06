@@ -1,14 +1,11 @@
-
-import { useContext } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
+import { useContext, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { UserContext } from '../api/UserProvider';
 import { Search, SearchContainer, StFooter, StHeader } from '../styles/LayoutStyles';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { setSearchInput, setSearchResults } from '../redux/slices/searchSlice';
 import { useSelector } from 'react-redux';
-
 const Layout = ({ children }) => {
   const { user, signOutUser } = useContext(UserContext);
   // const [gameInput, setGameInput] = useState('');
@@ -17,16 +14,13 @@ const Layout = ({ children }) => {
   // 2.
   const dispatch = useDispatch();
   const { searchInput } = useSelector((state) => state.search);
-
   const getValue = (e) => {
     dispatch(setSearchInput(e.target.value.toLowerCase()));
   };
-
   // const getValue = (e) => {
   //   setGameInput(e.target.value.toLowerCase());
   // };
   console.log(searchInput);
-
   const handleSearchSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -40,50 +34,14 @@ const Layout = ({ children }) => {
       console.error('Error fetching search results:', error);
     }
   };
-
-
-const StFooter = styled.footer`
-  width: 100%;
-  height: 50px;
-  display: flex;
-  background-color: var(--main-color);
-  color: white;
-  align-items: center;
-  justify-content: center;
-  font-size: 12px;
-  flex-direction: column;
-  gap: 1rem;
-`;
-
-const Layout = ({ children }) => {
-  const { user, signOutUser } = useContext(UserContext);
-  const navigate = useNavigate();
-
-  const onClicktoLogin = () => {
-    alert('로그인 후 이용해주세요!');
-    navigate('/login');
-  };
-  
   return (
     <>
       <StHeader>
-        <Link to="/">👾 Today’s Playground 🎮</Link>
+        <Link to="/">:우주_침략자: Today’s Playground :비디오_게임:</Link>
         <div className="section">
-          <Link to="/" className="store-name">
-            Store
-          </Link>
-          <Link to="/community" className="community-name">
-            Community
-          </Link>
-          {user ? (
-            <Link to="/my" className="mypage-name">
-              Mypage
-            </Link>
-          ) : (
-            <div onClick={onClicktoLogin} className="mypage-name">
-              MyPage
-            </div>
-          )}
+          <Link to="/">Store</Link>
+          <Link to="/community">Community</Link>
+          <Link to="/my">Mypage</Link>
         </div>
         <div className="login">
           <form onSubmit={handleSearchSubmit}>
@@ -107,9 +65,7 @@ const Layout = ({ children }) => {
           )}
           <div> |</div>
           {user ? (
-            <span className="login-name" onClick={() => navigate('/my')}>
-              {user.user_metadata.username} 님
-            </span>
+            <span className="login-name">{user.user_metadata.username} 님</span>
           ) : (
             <Link to="/signup" className="signup-name">
               회원가입
@@ -128,5 +84,4 @@ const Layout = ({ children }) => {
     </>
   );
 };
-
 export default Layout;
