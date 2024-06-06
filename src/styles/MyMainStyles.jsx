@@ -65,6 +65,11 @@ export const UserInfor = styled.section`
   }
 `;
 
+export const DefaultImageWrapper = styled.div`
+  position: relative;
+  z-index: 1;
+`;
+
 export const EmailDiv = styled.div`
   display: flex;
   justify-content: center;
