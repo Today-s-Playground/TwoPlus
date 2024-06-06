@@ -27,7 +27,6 @@ const Login = () => {
   //로그인할 때 필요
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const navigate = useNavigate();
   const { signInUser } = useContext(UserContext);
 
   return (
