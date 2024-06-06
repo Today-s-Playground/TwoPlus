@@ -60,16 +60,34 @@ const SignUp = () => {
       }
     });
     console.log('signup: ', { data, error });
+
+    const user_id = await getId();
+
     if (data) {
-      await alert(
-        `${data.user.user_metadata.username}님 Today's Playground의 가입을 축하합니다! 이메일을 인증해주세요!`
-      );
+      const { data: insertData, error: insertError } = await supabase
+        .from('Users')
+        .insert([{ user_id, user_email: email, user_name: username }]);
+      console.log(insertData);
+      await alert(`${username}님 Today's Playground의 가입을 축하합니다! 이메일을 인증해주세요!`);
     }
 
     if (error) {
       return await (<h1>Error!</h1>);
     }
     navigate('/');
+  };
+
+  const getId = async () => {
+    const {
+      data: {
+        session: {
+          user: { id }
+        }
+      },
+      error
+    } = await supabase.auth.getSession();
+    console.log(id);
+    return id;
   };
 
   // 깃헙 회원가입

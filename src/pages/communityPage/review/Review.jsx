@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 import { addReviewInfo } from '../../../redux/slices/reviewInfoSlice';
 import { useContext } from 'react';
 import { UserContext } from '../../../api/UserProvider';
+import CommunityLayout from '../../../shared/CommunityLayout';
 
 const Review = () => {
   const { user } = useContext(UserContext);
@@ -33,7 +34,7 @@ const Review = () => {
   };
 
   return (
-    <>
+    <CommunityLayout>
       <StSection>
         <StH3>리뷰 작성하기📝</StH3>
         <StReviewBox onSubmit={onAddHandler}>
@@ -53,7 +54,7 @@ const Review = () => {
         </StReviewBox>
       </StSection>
       <ReviewFormat isSliced={false} $isMain={false} $detail={true} $show={true} />
-    </>
+    </CommunityLayout>
   );
 };
 
