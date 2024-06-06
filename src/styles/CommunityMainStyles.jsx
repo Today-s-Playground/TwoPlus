@@ -98,20 +98,21 @@ export const StInfo = styled.div`
 `;
 
 export const StContent = styled.div`
+  display: flex;
   margin-top: 10px;
   padding: 10px;
   border: 3px solid var(--main-color);
   border-radius: 10px;
-  min-height: ${(props) => (props.$detail ? '100px' : '16px')};
-  max-height: ${(props) => (props.$detail ? 'fit-content' : '16px')};
+  min-height: ${(props) => (props.$detail ? '100px' : '22px')};
+  max-height: ${(props) => (props.$detail ? 'fit-content' : '22px')};
   width: 92%;
-  ${(props) =>
+  /* ${(props) =>
     !props.$detail &&
     css`
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-    `}
+    `} */
   ${(props) =>
     props.$detail &&
     css`

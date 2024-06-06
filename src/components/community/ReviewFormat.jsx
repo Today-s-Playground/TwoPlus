@@ -11,25 +11,44 @@ import {
   StBoxSection,
   StCommentBox
 } from './../../styles/CommunityMainStyles';
-import { fetchInfo } from '../../redux/slices/reviewInfoSlice';
+import { deleteReviewInfo, fetchReviewInfo, updateReviewInfo } from '../../redux/slices/reviewInfoSlice';
 import './../../styles/Loading.css';
 import useFetch from '../../hooks/useFetch';
+import { StButtonBox, StTextarea } from '../../styles/ReviewFormatStyles';
+import useHandler from '../../hooks/useHandler';
+import { useRef } from 'react';
+import { useDispatch } from 'react-redux';
+import Loading from '../../shared/Loading';
 
-const ReviewFormat = ({ isSliced, $isMain }) => {
+const ReviewFormat = ({ isSliced, $isMain, $detail, $show }) => {
   const navigate = useNavigate();
-  const data = useFetch('reviewInfo', fetchInfo, isSliced);
+  const dispatch = useDispatch();
+  const textareaRefs = useRef([]);
+
+  const data = useFetch('reviewInfo', fetchReviewInfo, isSliced);
+  const { onToggleHandler, onDeleteHandler } = useHandler($show, deleteReviewInfo);
+
+  const onUpdateHandler = (e, id) => {
+    e.stopPropagation();
+    let content = null;
+    textareaRefs.current.forEach((ref) => {
+      if (ref.id == id) content = ref.value;
+    });
+    dispatch(updateReviewInfo({ id, content }));
+    alert('수정이 완료되었습니다.');
+  };
 
   return (
     <StBoxSection $isMain={$isMain}>
       {data.length === 0 ? (
-        <div className="loader"></div>
+        <Loading />
       ) : (
-        data.map((info) => (
+        data.map((info, index) => (
           <StBox key={info.id} onClick={() => navigate(`/review/${info.id}`)}>
             <StBoxTop>
               <StImg src="https://cdn.pixabay.com/photo/2018/03/30/15/11/deer-3275594_1280.jpg" alt="" />
               <StInfo>
-                <p>{info.game_name}</p>
+                <p>🎮{info.game_name}</p>
                 <p>⭐️{info.star_score}</p>
                 <p>{info.user_name}</p>
               </StInfo>
@@ -39,7 +58,30 @@ const ReviewFormat = ({ isSliced, $isMain }) => {
                 <p>{info.liked_amount}</p>
               </StLikedBox>
             </StBoxTop>
-            <StContent>{info.content}</StContent>
+            <StContent $detail={$detail} onClick={onToggleHandler}>
+              <StTextarea
+                id={info.id}
+                defaultValue={info.content}
+                ref={(e) => (textareaRefs.current[index] = e)}
+                $show={$show}
+              ></StTextarea>
+            </StContent>
+            <StButtonBox $show={$show}>
+              <button
+                onClick={(e) => {
+                  onUpdateHandler(e, info.id);
+                }}
+              >
+                수정
+              </button>
+              <button
+                onClick={(e) => {
+                  onDeleteHandler(e, info.id);
+                }}
+              >
+                삭제
+              </button>
+            </StButtonBox>
             <StLine>
               <div>
                 <p>{info.created_at.split('T')[0]}</p>

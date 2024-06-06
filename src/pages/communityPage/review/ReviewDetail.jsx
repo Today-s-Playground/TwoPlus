@@ -13,9 +13,10 @@ import {
 import { StButton, StCommentBox, StForm, StTextarea } from '../../../styles/ReviewDetailStyles';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
-import { fetchInfo } from '../../../redux/slices/reviewInfoSlice';
+import { fetchReviewInfo } from '../../../redux/slices/reviewInfoSlice';
 import './../../../styles/Loading.css';
 import ReviewComment from '../../../components/community/ReviewComment';
+import Loading from '../../../shared/Loading';
 import CommunityLayout from '../../../shared/CommunityLayout';
 
 // 리뷰 상세 페이지
@@ -27,13 +28,13 @@ const ReviewDetail = () => {
   const { reviewInfo, status, error } = useSelector((state) => state.reviewInfo);
 
   useEffect(() => {
-    if (status === 'idle') dispatch(fetchInfo());
+    if (status === 'idle') dispatch(fetchReviewInfo());
   }, [status, dispatch]);
 
   if (status === 'loading')
     return (
       <StBoxSection>
-        <div className="loader"></div>
+        <Loading />
       </StBoxSection>
     );
   if (status === 'failed') console.log('에러: ', error);
