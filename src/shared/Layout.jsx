@@ -127,7 +127,9 @@ const Layout = ({ children }) => {
           )}
           <div> |</div>
           {user ? (
-            <span className="login-name">{user.user_metadata.username} 님</span>
+            <span className="login-name" onClick={() => navigate('/my')}>
+              {user.user_metadata.username} 님
+            </span>
           ) : (
             <Link to="/signup" className="signup-name">
               회원가입
