@@ -6,28 +6,37 @@ import { addReviewInfo } from '../../../redux/slices/reviewInfoSlice';
 import { useContext } from 'react';
 import { UserContext } from '../../../api/UserProvider';
 import CommunityLayout from '../../../shared/CommunityLayout';
+import { useNavigate } from 'react-router-dom';
 
 const Review = () => {
   const { user } = useContext(UserContext);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const onAddHandler = (e) => {
-    e.preventDefault();
+    if (user) {
+      e.preventDefault();
 
-    const data = new FormData(e.target);
-    const gamename = data.get('gamename');
-    const starscore = +data.get('starscore');
-    const content = data.get('content');
-    const username = user.user_metadata.username;
+      const data = new FormData(e.target);
+      const gamename = data.get('gamename');
+      const starscore = +data.get('starscore');
+      const content = data.get('content');
+      const username = user.user_metadata.username;
 
-    if (!gamename.trim()) return alert('게임 이름을 입력해주세요.');
-    else if (!starscore) return alert('별점을 입력해주세요.');
-    else if (starscore < 1 || starscore > 5) return alert('별점은 1점 이상 5점 이하의 숫자여야 합니다.');
-    else if (!content.trim()) return alert('내용을 입력해주세요.');
-    else {
-      const newReviewInfo = { gamename, starscore, content, username };
-      dispatch(addReviewInfo(newReviewInfo));
-      alert('리뷰가 등록되었습니다.');
+      if (!gamename.trim()) return alert('게임 이름을 입력해주세요.');
+      else if (!starscore) return alert('별점을 입력해주세요.');
+      else if (starscore < 1 || starscore > 5) return alert('별점은 1점 이상 5점 이하의 숫자여야 합니다.');
+      else if (!content.trim()) return alert('내용을 입력해주세요.');
+      else {
+        const newReviewInfo = { gamename, starscore, content, username };
+        dispatch(addReviewInfo(newReviewInfo));
+        alert('리뷰가 등록되었습니다.');
+      }
+    } else {
+      e.preventDefault();
+      alert('로그인 후 이용해주세요!');
+      navigate('/login');
+      return;
     }
 
     e.target.reset();
