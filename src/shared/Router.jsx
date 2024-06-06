@@ -1,6 +1,5 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Layout from './Layout';
-import Home from './../pages/mainPage/Home';
 import StoreMain from './../pages/storePage/StoreMain';
 import CommunityMain from './../pages/communityPage/CommunityMain';
 import Review from './../pages/communityPage/review/Review';
@@ -15,6 +14,8 @@ import SignUp from '../pages/loginPage/SignUp';
 import Login from '../pages/loginPage/Login';
 import ScrollToTop from './ScrollToTop';
 import UserProvider from '../api/UserProvider';
+import MyPosts from '../pages/myPage/MyPosts';
+import MyComments from '../pages/myPage/MyComments';
 
 const Router = () => {
   return (
@@ -43,6 +44,8 @@ const Router = () => {
 
             {/* 마이페이지 경로 설정 */}
             <Route path="/my" element={<MyMain />} />
+            <Route path="/myposts" element={<MyPosts />} />
+            <Route path="/mycomments" element={<MyComments />} />
           </Routes>
         </Layout>
       </UserProvider>

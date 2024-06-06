@@ -83,3 +83,10 @@ export const StButton2 = styled.button`
     font-weight: bold;
   }
 `;
+
+export const StLoadingBox = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 300px;
+`;

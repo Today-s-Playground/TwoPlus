@@ -1,10 +1,10 @@
 import useFetch from '../../hooks/useFetch';
-import { fetchReviewComment } from '../../redux/slices/reviewCommentSlice';
+import { fetchStrategyComment } from '../../redux/slices/strategyCommentSlice';
 import Loading from '../../shared/Loading';
 import { StButton2, StButtonBox, StComment, StLi, StLiBottom, StLiTop, StUl } from '../../styles/ReviewDetailStyles';
 
-const ReviewComment = () => {
-  const data = useFetch('reviewComment', fetchReviewComment);
+const StrategyComment = () => {
+  const data = useFetch('strategyComment', fetchStrategyComment);
 
   return (
     <StUl>
@@ -31,4 +31,4 @@ const ReviewComment = () => {
   );
 };
 
-export default ReviewComment;
+export default StrategyComment;
