@@ -7,7 +7,8 @@ import {
   StContent,
   StLine,
   StBoxSection,
-  StCommentBox
+  StCommentBox,
+  StComment1
 } from './../../styles/CommunityMainStyles';
 import { deleteReviewInfo, fetchReviewInfo, updateReviewInfo } from '../../redux/slices/reviewInfoSlice';
 import './../../styles/Loading.css';
@@ -92,7 +93,7 @@ const ReviewFormat = ({ isSliced, $isMain, $detail, $show }) => {
               </div>
               <StCommentBox>
                 <p>{commentData.length}</p>
-                <p>(댓글 아이콘)</p>
+                <StComment1 src="../../../../src/images/comment.png" alt="" />
               </StCommentBox>
             </StLine>
           </StBox>

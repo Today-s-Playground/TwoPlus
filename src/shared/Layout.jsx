@@ -1,99 +1,53 @@
 import { useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
 import { UserContext } from '../api/UserProvider';
-
-const StHeader = styled.header`
-  width: 100%;
-  background-color: var(--main-color);
-  height: 50px;
-  display: flex;
-  align-items: center;
-  position: relative;
-  color: white;
-  font-size: 20px;
-  font-weight: bold;
-
-  .section {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-
-    a {
-      margin: 0 60px;
-    }
-  }
-
-  .login {
-    position: absolute;
-    right: 0;
-    display: flex;
-    align-items: center;
-  }
-
-  a {
-    margin: 0 5px;
-  }
-`;
-
-const SearchContainer = styled.div`
-  width: 200px;
-  height: 30px;
-  position: relative;
-  border: 0;
-  display: flex;
-  align-items: center;
-  border-radius: 5px;
-  margin-right: 20px;
-
-  img {
-    position: absolute;
-    right: 10px;
-    top: 5px;
-    width: 20px;
-    height: 20px;
-  }
-`;
-
-const Search = styled.input`
-  border-radius: 50px;
-  padding-left: 10px;
-  background-color: white;
-  width: 100%;
-  height: 100%;
-  border: none;
-  outline: none;
-`;
-
-const StFooter = styled.footer`
-  width: 100%;
-  height: 50px;
-  display: flex;
-  background-color: var(--main-color);
-  color: white;
-  align-items: center;
-  justify-content: center;
-  font-size: 12px;
-  flex-direction: column;
-  gap: 1rem;
-`;
+import axios from 'axios';
+import { Search, SearchContainer, StFooter, StHeader } from '../styles/LayoutStyles';
+import { useDispatch } from 'react-redux';
+import { setSearchInput, setSearchResults } from '../redux/slices/searchSlice';
+import { useSelector } from 'react-redux';
 
 const Layout = ({ children }) => {
   const { user, signOutUser } = useContext(UserContext);
   const navigate = useNavigate();
+
+  // const [gameInput, setGameInput] = useState('');
+  // const [searchResults, setSearchResults] = useState([]);
+  //1. redux 전역 상태로 관리 (초기값 빈 배열)
+  // 2.
+  const dispatch = useDispatch();
+  const { searchInput } = useSelector((state) => state.search);
 
   const onClicktoLogin = () => {
     alert('로그인 후 이용해주세요!');
     navigate('/login');
   };
 
+  const getValue = (e) => {
+    dispatch(setSearchInput(e.target.value.toLowerCase()));
+  };
+  // const getValue = (e) => {
+  //   setGameInput(e.target.value.toLowerCase());
+  // };
+  console.log(searchInput);
+  const handleSearchSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.get(
+        `https://api.rawg.io/api/games?key=cb6e513d181149ba97231f7307069426&search=${searchInput}`
+      );
+      // console.log(response.data.results);
+      // setSearchResults(response.data.results);
+      dispatch(setSearchResults(response.data.results));
+    } catch (error) {
+      console.error('Error fetching search results:', error);
+    }
+  };
+
   return (
     <>
       <StHeader>
-        <Link to="/">👾 Today’s Playground 🎮</Link>
+        <Link to="/">👾 Today's Playground 🎮</Link>
         <div className="section">
           <Link to="/" className="store-name">
             Store
@@ -113,8 +67,12 @@ const Layout = ({ children }) => {
         </div>
         <div className="login">
           <SearchContainer>
-            <Search placeholder="검색" />
-            <img src="https://www.freeiconspng.com/uploads/search-icon-png-21.png" alt="searchIcon" />
+            <Search placeholder="검색" value={searchInput} onChange={getValue} />
+            <img
+              src="https://www.freeiconspng.com/uploads/search-icon-png-21.png"
+              alt="searchIcon"
+              onClick={handleSearchSubmit}
+            />
           </SearchContainer>
           {user ? (
             <div className="logout-name" onClick={signOutUser}>

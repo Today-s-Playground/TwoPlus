@@ -2,7 +2,8 @@
   cursor: pointer;
 }
 
-.mypost-container {
+.mypost-container,
+.mycomment-container {
   display: flex;
   min-height: 600px;
   flex-direction: column;
@@ -34,7 +35,7 @@
   max-height: 200px;
   min-height: 100px;
   height: 300px;
-  box-shadow: 2px 2px rgb(0, 0, 0, 0.1);
+  box-shadow: 4px 4px rgb(0, 0, 0, 0.1);
 }
 
 .my-user-post2 {
@@ -46,7 +47,26 @@
   }
 }
 
+.ul-comment-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 .my-user-content {
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.my-user-comment1 {
+  border: 1px solid var(--main-color);
+  border-radius: 20px;
+  margin: 1rem;
+  height: auto;
+  box-shadow: 4px 4px rgb(0, 0, 0, 0.1);
+  padding: 1rem;
+  justify-content: space-between;
+  display: flex;
+  width: 500px;
 }

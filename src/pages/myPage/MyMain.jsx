@@ -69,7 +69,7 @@ const MyMain = () => {
         <div onClick={() => navigate('/myposts')} className="my-posts">
           <InfoCard title={'내가 쓴 글'} number={myPosts.length} />
         </div>
-        <div onClick={() => navigate('/mycomments')}>
+        <div onClick={() => navigate('/mycomments')} className="my-comments">
           <InfoCard title={'내가 쓴 댓글'} number={myComments.length} className="my-comments" />
         </div>
       </InforSection>

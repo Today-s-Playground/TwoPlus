@@ -1,5 +1,13 @@
 import { useNavigate } from 'react-router-dom';
-import { StBox2, StBoxSection, StImg, StContent, StBoxBottom, StComment } from './../../styles/CommunityMainStyles';
+import {
+  StBox2,
+  StBoxSection,
+  StImg,
+  StContent,
+  StBoxBottom,
+  StComment,
+  StComment1
+} from './../../styles/CommunityMainStyles';
 import './../../styles/Loading.css';
 import useFetch from '../../hooks/useFetch';
 import { deleteStrategyInfo, fetchStrategyInfo, updateStrategyInfo } from './../../redux/slices/strategyInfoSlice';
@@ -91,7 +99,7 @@ const StrategyFormat = ({ isSliced, path, $detail, $isMain, $show }) => {
               <p>{info.created_at.split('T')[0]}</p>
               <StComment>
                 <p>{commentData.length}</p>
-                <p>(댓글 아이콘)</p>
+                <StComment1 src="../../../../src/images/comment.png" alt="" />
               </StComment>
             </StBoxBottom>
           </StBox2>

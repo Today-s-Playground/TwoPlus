@@ -68,7 +68,6 @@ function StoreSideBar({ genereId, selectedGenresName }) {
             <h3 className={`${activeIndex === index ? 'font-bold' : ''}`}>{item.name}</h3>
           </div>
         ))}
-        <div className="arrow-up"></div>
       </div>
     </CategorieListFrame>
   );
