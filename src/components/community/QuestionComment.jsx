@@ -1,10 +1,11 @@
 import useFetch from '../../hooks/useFetch';
-import { fetchReviewComment } from '../../redux/slices/reviewCommentSlice';
+import { fetchQuestionComment } from '../../redux/slices/questionCommentSlice';
 import Loading from '../../shared/Loading';
 import { StButton2, StButtonBox, StComment, StLi, StLiBottom, StLiTop, StUl } from '../../styles/ReviewDetailStyles';
 
-const ReviewComment = () => {
-  const data = useFetch('reviewComment', fetchReviewComment);
+const QuestionComment = () => {
+  const data = useFetch('questionComment', fetchQuestionComment);
+  console.log(data);
 
   return (
     <StUl>
@@ -15,6 +16,7 @@ const ReviewComment = () => {
           <StLi key={info.id}>
             <StLiTop>
               <p>{info.user_name}</p>
+              {/* <p>{info.local_created_at}</p> */}
               <p>{info.created_at.split('T')[0]}</p>
             </StLiTop>
             <StLiBottom>
@@ -31,4 +33,4 @@ const ReviewComment = () => {
   );
 };
 
-export default ReviewComment;
+export default QuestionComment;
