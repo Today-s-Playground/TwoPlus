@@ -10,18 +10,28 @@ import {
   StLikedBox,
   StLine
 } from '../../../styles/CommunityMainStyles';
-import { StButton, StCommentBox, StForm, StLoadingBox, StTextarea } from '../../../styles/ReviewDetailStyles';
+import {
+  StButton,
+  StCommentBox,
+  StExplanation,
+  StForm,
+  StLoadingBox,
+  StTextarea
+} from '../../../styles/ReviewDetailStyles';
 import './../../../styles/Loading.css';
 import Loading from '../../../shared/Loading';
 import CommunityLayout from '../../../shared/CommunityLayout';
 import useDetailHandler from '../../../hooks/useDetailHandler';
-import { addQuestionComment } from '../../../redux/slices/questionCommentSlice';
+import { addQuestionComment, fetchQuestionComment } from '../../../redux/slices/questionCommentSlice';
 import useFetch from '../../../hooks/useFetch';
 import QuestionComment from '../../../components/community/QuestionComment';
 
 const QuestionDetail = () => {
   const { onAddHandler } = useDetailHandler(addQuestionComment);
+
   const data = useFetch('questionInfo', fetchQuestionInfo);
+  const commentData = useFetch('questionComment', fetchQuestionComment);
+
   const param = useParams();
   const filteredData = data.find((info) => info.id === parseInt(param.id));
 
@@ -36,20 +46,15 @@ const QuestionDetail = () => {
           <>
             <StBoxTop>
               <StImg src="https://cdn.pixabay.com/photo/2018/03/30/15/11/deer-3275594_1280.jpg" alt="" />
-              <StInfo>
-                <p>🎮{filteredData.game_name}</p>
+              <StInfo $detail={true}>
+                <p>🎮 {filteredData.game_name}</p>
                 <p>{filteredData.title}</p>
                 <p>{filteredData.user_name}</p>
               </StInfo>
-              <StLikedBox $detail={true}>
-                {/* <p>(좋아요 아이콘)</p> */}
-                <StLiked src="../../../../src/images/liked.png" alt="" />
-                <p>66</p>
-              </StLikedBox>
             </StBoxTop>
             <StContent $detail={true}>{filteredData.content}</StContent>
             <StLine>
-              <p>(댓글 개수)</p>
+              <StExplanation>총 💬{commentData.length}개의 댓글이 달려 있어요!</StExplanation>
               <p>(댓글 아이콘)</p>
             </StLine>
             <StCommentBox>
