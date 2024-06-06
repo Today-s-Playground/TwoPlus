@@ -5,6 +5,7 @@ import { StH3 } from '../../../styles/CommunityMainStyles';
 import { StInput, StSection, StReviewBox, StTextarea, StButton } from '../../../styles/ReviewStyles';
 import { useContext } from 'react';
 import { UserContext } from '../../../api/UserProvider';
+import CommunityLayout from '../../../shared/CommunityLayout';
 
 const Strategy = () => {
   const { user } = useContext(UserContext);
@@ -32,7 +33,7 @@ const Strategy = () => {
   };
 
   return (
-    <>
+    <CommunityLayout>
       <StSection>
         <StH3>게임 공략법 작성하기📝</StH3>
         <StReviewBox onSubmit={onAddHandler}>
@@ -52,7 +53,7 @@ const Strategy = () => {
         </StReviewBox>
       </StSection>
       <StrategyFormat isSliced={false} path="strategy" $detail={true} $isMain={false} $show={true} />
-    </>
+    </CommunityLayout>
   );
 };
 

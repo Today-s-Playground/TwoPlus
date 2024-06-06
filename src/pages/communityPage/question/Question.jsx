@@ -5,6 +5,8 @@ import { StInput, StSection, StReviewBox, StTextarea, StButton } from '../../../
 import { addQuestionInfo } from '../../../redux/slices/questionInfoSlice';
 import { useContext } from 'react';
 import { UserContext } from '../../../api/UserProvider';
+import CommunityLayout from '../../../shared/CommunityLayout';
+
 
 const Question = () => {
   const { user } = useContext(UserContext);
@@ -32,7 +34,7 @@ const Question = () => {
   };
 
   return (
-    <>
+    <CommunityLayout>
       <StSection>
         <StH3>질문 작성하기📝</StH3>
         <StReviewBox onSubmit={onAddHandler}>
@@ -52,7 +54,7 @@ const Question = () => {
         </StReviewBox>
       </StSection>
       <StrategyFormat isSliced={false} path="question" $detail={true} $isMain={false} $show={true} />
-    </>
+    </CommunityLayout>
   );
 };
 
