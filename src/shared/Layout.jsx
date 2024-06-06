@@ -37,7 +37,7 @@ const Layout = ({ children }) => {
   return (
     <>
       <StHeader>
-        <Link to="/">:우주_침략자: Today’s Playground :비디오_게임:</Link>
+        <Link to="/">👾 Today’s Playground 🎮</Link>
         <div className="section">
           <Link to="/">Store</Link>
           <Link to="/community">Community</Link>
