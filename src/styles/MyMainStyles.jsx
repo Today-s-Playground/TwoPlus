@@ -164,8 +164,14 @@ export const ListSection = styled.section`
     font-size: 30px;
     margin-bottom: 40px;
   }
-  img {
-    width: 170px;
-    height: 170px;
+
+  .purchaseImg {
+    display: flex;
+    justify-content: space-between;
+    img {
+      width: 180px;
+      height: 180px;
+      box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 15px;
+    }
   }
 `;

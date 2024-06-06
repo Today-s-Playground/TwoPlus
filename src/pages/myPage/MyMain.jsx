@@ -1,5 +1,6 @@
 import { GameSection, InforSection, ListSection, Main, ProfileSection } from '../../styles/MyMainStyles';
 import InfoCard from './InfoCard';
+import ListCard from './ListCard';
 import UserInfo from './UserInfo';
 
 const MyMain = () => {
@@ -33,10 +34,7 @@ const MyMain = () => {
         <InfoCard title={'내가 쓴 댓글'} />
       </InforSection>
       {/* 구매 목록 */}
-      <ListSection>
-        <div className="purchaseList">구매목록 ➡️</div>
-        <img src="https://ifh.cc/g/kNDdqB.jpg" alt="" />
-      </ListSection>
+      <ListCard />
     </Main>
   );
 };
