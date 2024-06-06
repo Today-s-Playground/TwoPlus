@@ -16,6 +16,7 @@ import {
 import { StButton, StCommentBox, StForm, StTextarea } from '../../../styles/ReviewDetailStyles';
 import './../../../styles/Loading.css';
 import ReviewComment from '../../../components/community/ReviewComment';
+import Loading from '../../../shared/Loading';
 
 const QuestionDetail = () => {
   const dispatch = useDispatch();
@@ -31,7 +32,7 @@ const QuestionDetail = () => {
   if (status === 'loading')
     return (
       <StBoxSection>
-        <div className="loader"></div>
+        <Loading />
       </StBoxSection>
     );
   if (status === 'failed') console.log('에러: ', error);
