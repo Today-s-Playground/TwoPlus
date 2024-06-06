@@ -1,16 +1,16 @@
-
 import { useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
 import { UserContext } from '../api/UserProvider';
-import { Search, SearchContainer, StFooter, StHeader } from '../styles/LayoutStyles';
 import axios from 'axios';
+import { Search, SearchContainer, StFooter, StHeader } from '../styles/LayoutStyles';
 import { useDispatch } from 'react-redux';
 import { setSearchInput, setSearchResults } from '../redux/slices/searchSlice';
 import { useSelector } from 'react-redux';
 
 const Layout = ({ children }) => {
   const { user, signOutUser } = useContext(UserContext);
+  const navigate = useNavigate();
+
   // const [gameInput, setGameInput] = useState('');
   // const [searchResults, setSearchResults] = useState([]);
   //1. redux 전역 상태로 관리 (초기값 빈 배열)
@@ -18,15 +18,18 @@ const Layout = ({ children }) => {
   const dispatch = useDispatch();
   const { searchInput } = useSelector((state) => state.search);
 
+  const onClicktoLogin = () => {
+    alert('로그인 후 이용해주세요!');
+    navigate('/login');
+  };
+
   const getValue = (e) => {
     dispatch(setSearchInput(e.target.value.toLowerCase()));
   };
-
   // const getValue = (e) => {
   //   setGameInput(e.target.value.toLowerCase());
   // };
   console.log(searchInput);
-
   const handleSearchSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -41,33 +44,10 @@ const Layout = ({ children }) => {
     }
   };
 
-
-const StFooter = styled.footer`
-  width: 100%;
-  height: 50px;
-  display: flex;
-  background-color: var(--main-color);
-  color: white;
-  align-items: center;
-  justify-content: center;
-  font-size: 12px;
-  flex-direction: column;
-  gap: 1rem;
-`;
-
-const Layout = ({ children }) => {
-  const { user, signOutUser } = useContext(UserContext);
-  const navigate = useNavigate();
-
-  const onClicktoLogin = () => {
-    alert('로그인 후 이용해주세요!');
-    navigate('/login');
-  };
-  
   return (
     <>
       <StHeader>
-        <Link to="/">👾 Today’s Playground 🎮</Link>
+        <Link to="/">👾 Today's Playground 🎮</Link>
         <div className="section">
           <Link to="/" className="store-name">
             Store
@@ -86,16 +66,14 @@ const Layout = ({ children }) => {
           )}
         </div>
         <div className="login">
-          <form onSubmit={handleSearchSubmit}>
-            <SearchContainer>
-              <Search placeholder="검색" value={searchInput} onChange={getValue} />
-              <img
-                src="https://www.freeiconspng.com/uploads/search-icon-png-21.png"
-                alt="searchIcon"
-                onClick={handleSearchSubmit}
-              />
-            </SearchContainer>
-          </form>
+          <SearchContainer>
+            <Search placeholder="검색" value={searchInput} onChange={getValue} />
+            <img
+              src="https://www.freeiconspng.com/uploads/search-icon-png-21.png"
+              alt="searchIcon"
+              onClick={handleSearchSubmit}
+            />
+          </SearchContainer>
           {user ? (
             <div className="logout-name" onClick={signOutUser}>
               로그아웃

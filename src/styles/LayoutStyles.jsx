@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-
 export const StHeader = styled.header`
   width: 100%;
   background-color: var(--main-color);
@@ -10,7 +9,6 @@ export const StHeader = styled.header`
   color: white;
   font-size: 20px;
   font-weight: bold;
-
   .section {
     display: flex;
     justify-content: center;
@@ -18,24 +16,20 @@ export const StHeader = styled.header`
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-
     a {
       margin: 0 60px;
     }
   }
-
   .login {
     position: absolute;
     right: 0;
     display: flex;
     align-items: center;
   }
-
   a {
     margin: 0 5px;
   }
 `;
-
 export const SearchContainer = styled.div`
   width: 200px;
   height: 30px;
@@ -45,7 +39,6 @@ export const SearchContainer = styled.div`
   align-items: center;
   border-radius: 5px;
   margin-right: 20px;
-
   img {
     position: absolute;
     right: 10px;
@@ -54,7 +47,6 @@ export const SearchContainer = styled.div`
     height: 20px;
   }
 `;
-
 export const Search = styled.input`
   border-radius: 50px;
   padding-left: 20px;
@@ -64,7 +56,6 @@ export const Search = styled.input`
   border: none;
   outline: none;
 `;
-
 export const StFooter = styled.footer`
   width: 100%;
   height: 50px;
