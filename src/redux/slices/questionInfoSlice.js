@@ -7,7 +7,7 @@ export const fetchQuestionInfo = createAsyncThunk('questionInfo/fetchQuestionInf
   return data;
 });
 
-export const addInfo = createAsyncThunk('questionInfo/addInfo', async (action) => {
+export const addQuestionInfo = createAsyncThunk('questionInfo/addQuestionInfo', async (action) => {
   const { data, error } = await supabase
     .from('Question')
     .insert({
@@ -18,6 +18,24 @@ export const addInfo = createAsyncThunk('questionInfo/addInfo', async (action) =
     })
     .select('*');
   if (error) throw error;
+  return data;
+});
+
+export const deleteQuestionInfo = createAsyncThunk('questionInfo/deleteQuestionInfo', async (action) => {
+  const { data, error } = await supabase.from('Question').delete().eq('id', action.id).select('*');
+  if (error) throw error;
+  return data;
+});
+
+export const updateQuestionInfo = createAsyncThunk('questionInfo/updateQuestionInfo', async (action) => {
+  const { data, error } = await supabase
+    .from('Question')
+    .update({ content: action.content })
+    .eq('id', action.id)
+    .select('*')
+    .order('created_at', { ascending: false });
+  if (error) throw error;
+  console.log(data);
   return data;
 });
 
@@ -41,10 +59,24 @@ const questionInfoSlice = createSlice({
         state.status = 'failed'; // 작업이 실패했음을 나타내는 상태
         state.error = action.error.message; // 에러 메시지를 상태에 저장
       })
-      .addCase(addInfo.fulfilled, (state, action) => {
-        state.questionInfo.push(action.payload[0]);
+      .addCase(addQuestionInfo.fulfilled, (state, action) => {
+        state.questionInfo = [action.payload[0], ...state.questionInfo];
       })
-      .addCase(addInfo.rejected, (state, action) => {
+      .addCase(addQuestionInfo.rejected, (state, action) => {
+        state.error = action.error.message;
+      })
+      .addCase(deleteQuestionInfo.fulfilled, (state, action) => {
+        state.questionInfo = state.questionInfo.filter((info) => info.id !== action.payload[0].id);
+      })
+      .addCase(deleteQuestionInfo.rejected, (state, action) => {
+        state.error = action.error.message;
+      })
+      .addCase(updateQuestionInfo.fulfilled, (state, action) => {
+        state.questionInfo = state.questionInfo.map((info) =>
+          info.id === action.payload[0].id ? { ...action.payload[0], content: action.payload[0].content } : info
+        );
+      })
+      .addCase(updateQuestionInfo.rejected, (state, action) => {
         state.error = action.error.message;
       });
   }
