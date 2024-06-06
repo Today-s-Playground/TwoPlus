@@ -14,7 +14,6 @@ import SignUp from '../pages/loginPage/SignUp';
 import Login from '../pages/loginPage/Login';
 import ScrollToTop from './ScrollToTop';
 import UserProvider from '../api/UserProvider';
-import CommunitySideBar from './CommunityLayout';
 
 const Router = () => {
   return (
