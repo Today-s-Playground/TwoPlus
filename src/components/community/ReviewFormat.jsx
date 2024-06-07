@@ -24,7 +24,12 @@ const ReviewFormat = ({ isSliced, $isMain, $detail, $show }) => {
   const textareaRefs = useRef([]);
 
   const data = useFetch('reviewInfo', fetchReviewInfo, isSliced);
-  const { onToggleHandler, onDeleteHandler, onUpdateHandler } = useHandler($show, deleteReviewInfo, textareaRefs);
+  const { onToggleHandler, onDeleteHandler, onUpdateHandler } = useHandler(
+    $show,
+    deleteReviewInfo,
+    updateReviewInfo,
+    textareaRefs
+  );
 
   const commentData = useFetch('reviewComment', fetchReviewComment);
 

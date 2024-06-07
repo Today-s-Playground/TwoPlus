@@ -29,7 +29,7 @@ export const deleteStrategyComment = createAsyncThunk('strategyComment/deleteStr
 export const updateStrategyComment = createAsyncThunk('strategyComment/updateStrategyComment', async (action) => {
   const { data, error } = await supabase
     .from('Strategy Comment')
-    .update({ comment: action.comment })
+    .update({ comment: action.content })
     .eq('id', action.id)
     .select('*')
     .order('created_at', { ascending: false });
