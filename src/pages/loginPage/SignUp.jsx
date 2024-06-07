@@ -59,7 +59,6 @@ const SignUp = () => {
         }
       }
     });
-    console.log('signup: ', { data, error });
 
     const user_id = await getId();
 
@@ -67,7 +66,6 @@ const SignUp = () => {
       const { data: insertData, error: insertError } = await supabase
         .from('Users')
         .insert([{ user_id, user_email: email, user_name: username }]);
-      console.log(insertData);
       await alert(`${username}님 Today's Playground의 가입을 축하합니다! 이메일을 인증해주세요!`);
     }
 
@@ -86,7 +84,6 @@ const SignUp = () => {
       },
       error
     } = await supabase.auth.getSession();
-    console.log(id);
     return id;
   };
 
@@ -100,7 +97,6 @@ const SignUp = () => {
         }
       }
     });
-    console.log('signup: ', { data, error });
     if (data) {
       return await alert(`${data.user.user_metadata.username}님 Today's Playground의 가입을 축하합니다!`);
     }

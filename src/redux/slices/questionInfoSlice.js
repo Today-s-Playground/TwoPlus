@@ -36,7 +36,6 @@ export const updateQuestionInfo = createAsyncThunk('questionInfo/updateQuestionI
     .select('*')
     .order('created_at', { ascending: false });
   if (error) throw error;
-  console.log(data);
   return data;
 });
 
@@ -67,15 +66,21 @@ const questionInfoSlice = createSlice({
         state.error = action.error.message;
       })
       .addCase(deleteQuestionInfo.fulfilled, (state, action) => {
-        state.questionInfo = state.questionInfo.filter((info) => info.id !== action.payload[0].id);
+        state.questionInfo =
+          action.payload.length === 0
+            ? state.questionInfo
+            : state.questionInfo.filter((info) => info.id !== action.payload[0].id);
       })
       .addCase(deleteQuestionInfo.rejected, (state, action) => {
         state.error = action.error.message;
       })
       .addCase(updateQuestionInfo.fulfilled, (state, action) => {
-        state.questionInfo = state.questionInfo.map((info) =>
-          info.id === action.payload[0].id ? { ...action.payload[0], content: action.payload[0].content } : info
-        );
+        state.questionInfo =
+          action.payload.length === 0
+            ? state.questionInfo
+            : state.questionInfo.map((info) =>
+                info.id === action.payload[0].id ? { ...action.payload[0], content: action.payload[0].content } : info
+              );
       })
       .addCase(updateQuestionInfo.rejected, (state, action) => {
         state.error = action.error.message;

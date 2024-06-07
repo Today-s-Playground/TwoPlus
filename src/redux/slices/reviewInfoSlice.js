@@ -66,15 +66,21 @@ const reviewInfoSlice = createSlice({
         state.error = action.error.message;
       })
       .addCase(deleteReviewInfo.fulfilled, (state, action) => {
-        state.reviewInfo = state.reviewInfo.filter((info) => info.id !== action.payload[0].id);
+        state.reviewInfo =
+          action.payload.length === 0
+            ? state.reviewInfo
+            : state.reviewInfo.filter((info) => info.id !== action.payload[0].id);
       })
       .addCase(deleteReviewInfo.rejected, (state, action) => {
         state.error = action.error.message;
       })
       .addCase(updateReviewInfo.fulfilled, (state, action) => {
-        state.reviewInfo = state.reviewInfo.map((info) =>
-          info.id === action.payload[0].id ? { ...action.payload[0], content: action.payload[0].content } : info
-        );
+        state.reviewInfo =
+          action.payload.length === 0
+            ? state.reviewInfo
+            : state.reviewInfo.map((info) =>
+                info.id === action.payload[0].id ? { ...action.payload[0], content: action.payload[0].content } : info
+              );
       })
       .addCase(updateReviewInfo.rejected, (state, action) => {
         state.error = action.error.message;

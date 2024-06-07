@@ -64,15 +64,21 @@ const reviewCommentSlice = createSlice({
         state.error = action.error.message;
       })
       .addCase(deleteReviewComment.fulfilled, (state, action) => {
-        state.reviewComment = state.reviewComment.filter((info) => info.id !== action.payload[0].id);
+        state.reviewComment =
+          action.payload.length === 0
+            ? state.reviewComment
+            : state.reviewComment.filter((info) => info.id !== action.payload[0].id);
       })
       .addCase(deleteReviewComment.rejected, (state, action) => {
         state.error = action.error.message;
       })
       .addCase(updateReviewComment.fulfilled, (state, action) => {
-        state.reviewComment = state.reviewComment.map((info) =>
-          info.id === action.payload[0].id ? { ...action.payload[0], comment: action.payload[0].comment } : info
-        );
+        state.reviewComment =
+          action.payload.length === 0
+            ? state.reviewComment
+            : state.reviewComment.map((info) =>
+                info.id === action.payload[0].id ? { ...action.payload[0], comment: action.payload[0].comment } : info
+              );
       })
       .addCase(updateReviewComment.rejected, (state, action) => {
         state.error = action.error.message;

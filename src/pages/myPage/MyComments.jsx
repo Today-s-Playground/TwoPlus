@@ -21,7 +21,6 @@ const MyComments = () => {
     const myQuestionCmt = questionComment.filter((data) => data.user_id === user.id);
     myComments = [...myReviewCmt, ...myStrategyCmt, ...myQuestionCmt];
   }
-  console.log(myComments);
 
   const formatDate = (dateSt) => {
     const date = moment(dateSt);

@@ -64,15 +64,21 @@ const questionCommentSlice = createSlice({
         state.error = action.error.message;
       })
       .addCase(deleteQuestionComment.fulfilled, (state, action) => {
-        state.questionComment = state.questionComment.filter((info) => info.id !== action.payload[0].id);
+        state.questionComment =
+          action.payload.length === 0
+            ? state.questionComment
+            : state.questionComment.filter((info) => info.id !== action.payload[0].id);
       })
       .addCase(deleteQuestionComment.rejected, (state, action) => {
         state.error = action.error.message;
       })
       .addCase(updateQuestionComment.fulfilled, (state, action) => {
-        state.questionComment = state.questionComment.map((info) =>
-          info.id === action.payload[0].id ? { ...action.payload[0], comment: action.payload[0].comment } : info
-        );
+        state.questionComment =
+          action.payload.length === 0
+            ? state.questionComment
+            : state.questionComment.map((info) =>
+                info.id === action.payload[0].id ? { ...action.payload[0], comment: action.payload[0].comment } : info
+              );
       })
       .addCase(updateQuestionComment.rejected, (state, action) => {
         state.error = action.error.message;

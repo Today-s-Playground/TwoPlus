@@ -29,14 +29,12 @@ const Layout = ({ children }) => {
   // const getValue = (e) => {
   //   setGameInput(e.target.value.toLowerCase());
   // };
-  console.log(searchInput);
   const handleSearchSubmit = async (e) => {
     e.preventDefault();
     try {
       const response = await axios.get(
         `https://api.rawg.io/api/games?key=cb6e513d181149ba97231f7307069426&search=${searchInput}`
       );
-      // console.log(response.data.results);
       // setSearchResults(response.data.results);
       dispatch(setSearchResults(response.data.results));
     } catch (error) {

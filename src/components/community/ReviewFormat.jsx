@@ -15,38 +15,18 @@ import './../../styles/Loading.css';
 import useFetch from '../../hooks/useFetch';
 import { StButtonBox, StTextarea } from '../../styles/ReviewFormatStyles';
 import useHandler from '../../hooks/useHandler';
-import { useContext, useRef } from 'react';
-import { useDispatch } from 'react-redux';
+import { useRef } from 'react';
 import Loading from '../../shared/Loading';
-import { UserContext } from '../../api/UserProvider';
 import { fetchReviewComment } from '../../redux/slices/reviewCommentSlice';
 
 const ReviewFormat = ({ isSliced, $isMain, $detail, $show }) => {
-  const { user } = useContext(UserContext);
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const textareaRefs = useRef([]);
 
   const data = useFetch('reviewInfo', fetchReviewInfo, isSliced);
-  const { onToggleHandler, onDeleteHandler } = useHandler($show, deleteReviewInfo);
+  const { onToggleHandler, onDeleteHandler, onUpdateHandler } = useHandler($show, deleteReviewInfo, textareaRefs);
 
   const commentData = useFetch('reviewComment', fetchReviewComment);
-
-  const onUpdateHandler = (e, id) => {
-    e.stopPropagation();
-    if (user) {
-      let content = null;
-      textareaRefs.current.forEach((ref) => {
-        if (ref.id == id) content = ref.value;
-      });
-      dispatch(updateReviewInfo({ id, content }));
-      alert('수정이 완료되었습니다.');
-    } else {
-      alert('로그인 후 이용해주세요!');
-      navigate('/login');
-      return;
-    }
-  };
 
   return (
     <StBoxSection $isMain={$isMain}>
@@ -66,6 +46,7 @@ const ReviewFormat = ({ isSliced, $isMain, $detail, $show }) => {
             <StContent $detail={$detail} onClick={onToggleHandler}>
               <StTextarea
                 id={info.id}
+                name={info.user_name}
                 defaultValue={info.content}
                 ref={(e) => (textareaRefs.current[index] = e)}
                 $show={$show}

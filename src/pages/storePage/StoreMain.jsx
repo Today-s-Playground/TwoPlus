@@ -43,7 +43,6 @@ const StoreMain = () => {
   const getAllGameList = async () => {
     try {
       const resp = await GameApi.getAllGames();
-      console.log(resp.data);
       if (resp.data && resp.data.results) {
         setAllGameList(resp.data.results);
       }

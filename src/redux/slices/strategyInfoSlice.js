@@ -66,15 +66,21 @@ const strategyInfoSlice = createSlice({
         state.error = action.error.message;
       })
       .addCase(deleteStrategyInfo.fulfilled, (state, action) => {
-        state.strategyInfo = state.strategyInfo.filter((info) => info.id !== action.payload[0].id);
+        state.strategyInfo =
+          action.payload.length === 0
+            ? state.strategyInfo
+            : state.strategyInfo.filter((info) => info.id !== action.payload[0].id);
       })
       .addCase(deleteStrategyInfo.rejected, (state, action) => {
         state.error = action.error.message;
       })
       .addCase(updateStrategyInfo.fulfilled, (state, action) => {
-        state.strategyInfo = state.strategyInfo.map((info) =>
-          info.id === action.payload[0].id ? { ...action.payload[0], content: action.payload[0].content } : info
-        );
+        state.strategyInfo =
+          action.payload.length === 0
+            ? state.strategyInfo
+            : state.strategyInfo.map((info) =>
+                info.id === action.payload[0].id ? { ...action.payload[0], content: action.payload[0].content } : info
+              );
       })
       .addCase(updateStrategyInfo.rejected, (state, action) => {
         state.error = action.error.message;
