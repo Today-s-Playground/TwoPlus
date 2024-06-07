@@ -10,8 +10,8 @@ import {
 } from './../../styles/CommunityMainStyles';
 import './../../styles/Loading.css';
 import useFetch from '../../hooks/useFetch';
-import { deleteStrategyInfo, fetchStrategyInfo } from './../../redux/slices/strategyInfoSlice';
-import { deleteQuestionInfo, fetchQuestionInfo } from './../../redux/slices/questionInfoSlice';
+import { deleteStrategyInfo, fetchStrategyInfo, updateStrategyInfo } from './../../redux/slices/strategyInfoSlice';
+import { deleteQuestionInfo, fetchQuestionInfo, updateQuestionInfo } from './../../redux/slices/questionInfoSlice';
 import { useRef } from 'react';
 import { StTextarea } from '../../styles/ReviewFormatStyles';
 import { StButtonBox } from './../../styles/StrategyFormatStyles';
@@ -32,6 +32,7 @@ const StrategyFormat = ({ isSliced, path, $detail, $isMain, $show }) => {
   const { onToggleHandler, onDeleteHandler, onUpdateHandler } = useHandler(
     $show,
     path === 'strategy' ? deleteStrategyInfo : deleteQuestionInfo,
+    path === 'strategy' ? updateStrategyInfo : updateQuestionInfo,
     textareaRefs
   );
 

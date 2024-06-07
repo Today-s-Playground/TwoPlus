@@ -2,9 +2,8 @@ import { useContext } from 'react';
 import { useDispatch } from 'react-redux';
 import { UserContext } from '../api/UserProvider';
 import { useNavigate } from 'react-router-dom';
-import { updateReviewInfo } from '../redux/slices/reviewInfoSlice';
 
-const useHandler = ($show, deleteInfo, textareaRefs) => {
+const useHandler = ($show, deleteInfo, updateInfo, textareaRefs) => {
   const { user } = useContext(UserContext);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -47,7 +46,7 @@ const useHandler = ($show, deleteInfo, textareaRefs) => {
       textareaRefs.current.forEach((ref) => {
         if (user.user_metadata.username === ref.name && ref.id == id) content = ref.value;
       });
-      dispatch(updateReviewInfo({ id, content }));
+      dispatch(updateInfo({ id, content }));
       if (content) alert('수정이 완료되었습니다.');
       else alert('본인이 쓴 글만 수정할 수 있습니다.');
     }
