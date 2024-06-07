@@ -21,7 +21,6 @@ const MyPosts = () => {
     const myQuestion = questionData.filter((data) => data.user_id === user.id);
     myPosts = [...myReview, ...myStrategy, ...myQuestion];
   }
-  console.log(myPosts);
 
   const formatDate = (dateSt) => {
     const date = moment(dateSt);

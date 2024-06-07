@@ -74,10 +74,6 @@ const TrendingGames = ({ gameList }) => {
     navigate(`/game/${gameId}`);
   };
 
-  useEffect(() => {
-    console.log(gameList);
-  }, [gameList]);
-
   return (
     <Container>
       <Colunm className="flex">

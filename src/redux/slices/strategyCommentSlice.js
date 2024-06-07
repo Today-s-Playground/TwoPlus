@@ -64,15 +64,21 @@ const strategyCommentSlice = createSlice({
         state.error = action.error.message;
       })
       .addCase(deleteStrategyComment.fulfilled, (state, action) => {
-        state.strategyComment = state.strategyComment.filter((info) => info.id !== action.payload[0].id);
+        state.strategyComment =
+          action.payload.length === 0
+            ? state.strategyComment
+            : state.strategyComment.filter((info) => info.id !== action.payload[0].id);
       })
       .addCase(deleteStrategyComment.rejected, (state, action) => {
         state.error = action.error.message;
       })
       .addCase(updateStrategyComment.fulfilled, (state, action) => {
-        state.strategyComment = state.strategyComment.map((info) =>
-          info.id === action.payload[0].id ? { ...action.payload[0], comment: action.payload[0].comment } : info
-        );
+        state.strategyComment =
+          action.payload.length === 0
+            ? state.strategyComment
+            : state.strategyComment.map((info) =>
+                info.id === action.payload[0].id ? { ...action.payload[0], comment: action.payload[0].comment } : info
+              );
       })
       .addCase(updateStrategyComment.rejected, (state, action) => {
         state.error = action.error.message;

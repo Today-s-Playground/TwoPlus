@@ -18,7 +18,6 @@ const UserProvider = ({ children }) => {
       },
       error
     } = await supabase.auth.getSession();
-    console.log(id);
     return id;
   };
 
@@ -58,7 +57,6 @@ const UserProvider = ({ children }) => {
       email,
       password
     });
-    console.log('signin: ', { data, error });
 
     if (error) {
       alert(`로그인 실패하였습니다. 아이디와 비밀번호를 확인해주세요.`);
@@ -72,7 +70,6 @@ const UserProvider = ({ children }) => {
   // 로그아웃
   const signOutUser = async () => {
     const { error } = await supabase.auth.signOut();
-    console.log('signout: ', error);
 
     if (!error) {
       setUser(null);
