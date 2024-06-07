@@ -40,6 +40,12 @@ const StoreMain = () => {
     setFilteredGameList(searchResults.length > 0 ? searchResults : allGameList);
   }, [searchResults, allGameList]);
 
+  useEffect(() => {
+    if (!showTrending) {
+      setFilteredGameList(gameListByGenres);
+    }
+  }, [gameListByGenres]);
+
   const getAllGameList = async () => {
     try {
       const resp = await GameApi.getAllGames();
@@ -71,7 +77,6 @@ const StoreMain = () => {
     } else {
       getGameListByGenresId(genereId);
       setShowTrending(false);
-      setFilteredGameList(gameListByGenres);
     }
   };
 
