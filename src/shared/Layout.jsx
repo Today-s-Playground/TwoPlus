@@ -1,104 +1,108 @@
-import { Link } from 'react-router-dom';
-import styled from 'styled-components';
-
-const StHeader = styled.header`
-  width: 100%;
-  background-color: var(--main-color);
-  height: 50px;
-  display: flex;
-  align-items: center;
-  position: relative;
-  color: white;
-  font-size: 20px;
-  font-weight: bold;
-
-  .section {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-
-    a {
-      margin: 0 60px;
-    }
-  }
-
-  .login {
-    position: absolute;
-    right: 0;
-    display: flex;
-    align-items: center;
-  }
-
-  a {
-    margin: 0 5px;
-  }
-`;
-
-const SearchContainer = styled.div`
-  width: 200px;
-  height: 30px;
-  position: relative;
-  border: 0;
-  display: flex;
-  align-items: center;
-  border-radius: 5px;
-  margin-right: 20px;
-
-  img {
-    position: absolute;
-    right: 10px;
-    top: 5px;
-    width: 20px;
-    height: 20px;
-  }
-`;
-
-const Search = styled.input`
-  border-radius: 50px;
-  padding-left: 10px;
-  background-color: white;
-  width: 100%;
-  height: 100%;
-  border: none;
-  outline: none;
-`;
-
-const StFooter = styled.footer`
-  width: 100%;
-  height: 50px;
-  display: flex;
-  background-color: var(--main-color);
-  color: white;
-  align-items: center;
-  justify-content: center;
-  font-size: 12px;
-`;
+import { useContext } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { UserContext } from '../api/UserProvider';
+import axios from 'axios';
+import { Search, SearchContainer, StFooter, StHeader } from '../styles/LayoutStyles';
+import { useDispatch } from 'react-redux';
+import { setSearchInput, setSearchResults } from '../redux/slices/searchSlice';
+import { useSelector } from 'react-redux';
 
 const Layout = ({ children }) => {
+  const { user, signOutUser } = useContext(UserContext);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { searchInput } = useSelector((state) => state.search);
+
+  const onClicktoLogin = () => {
+    alert('로그인 후 이용해주세요!');
+    navigate('/login');
+  };
+
+  const getValue = (e) => {
+    dispatch(setSearchInput(e.target.value.toLowerCase()));
+  };
+
+  const handleSearchSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.get(
+        `https://api.rawg.io/api/games?key=cb6e513d181149ba97231f7307069426&search=${searchInput}`
+      );
+      dispatch(setSearchResults(response.data.results));
+
+      const filteredResults = response.data.results.filter((game) => game.name.toLowerCase().includes(searchInput));
+      dispatch(setSearchResults(filteredResults));
+      dispatch(setSearchInput(''));
+    } catch (error) {
+      console.error('Error fetching search results:', error);
+    }
+  };
+
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      handleSearchSubmit(e);
+    }
+  };
+
   return (
     <>
       <StHeader>
-        <Link to="/">👾 Today’s Playground 🎮</Link>
+        <Link to="/">👾 Today's Playground 🎮</Link>
         <div className="section">
-          <Link to="/store">Store</Link>
-          <Link to="/community">Community</Link>
-          <Link to="/my">Mypage</Link>
+          <Link to="/" className="store-name">
+            Store
+          </Link>
+          <Link to="/community" className="community-name">
+            Community
+          </Link>
+          {user ? (
+            <Link to="/my" className="mypage-name">
+              Mypage
+            </Link>
+          ) : (
+            <div onClick={onClicktoLogin} className="mypage-name">
+              MyPage
+            </div>
+          )}
         </div>
         <div className="login">
           <SearchContainer>
-            <Search placeholder="검색" />
-            <img src="https://www.freeiconspng.com/uploads/search-icon-png-21.png" alt="searchIcon" />
+            <Search placeholder="검색" value={searchInput} onChange={getValue} onKeyPress={handleKeyPress} />
+            <img
+              src="https://www.freeiconspng.com/uploads/search-icon-png-21.png"
+              alt="searchIcon"
+              onClick={handleSearchSubmit}
+            />
           </SearchContainer>
-          <Link>로그인</Link>
-          <div>|</div>
-          <Link>회원가입</Link>
+          {user ? (
+            <div className="logout-name" onClick={signOutUser}>
+              로그아웃
+            </div>
+          ) : (
+            <Link to="/login" className="login-name">
+              로그인
+            </Link>
+          )}
+          <div> |</div>
+          {user ? (
+            <span className="login-name" onClick={() => navigate('/my')}>
+              {user.user_metadata.username} 님
+            </span>
+          ) : (
+            <Link to="/signup" className="signup-name">
+              회원가입
+            </Link>
+          )}
         </div>
       </StHeader>
       {children}
-      <StFooter>푸터 부분</StFooter>
+      <StFooter>
+        <div>팀스파르타주식회사 내일배움캠프</div>
+        <div>
+          <span>5늘만놀조(A05조) </span>
+          <span> 김선민 김현진 최혜미 홍성빈</span>
+        </div>
+      </StFooter>
     </>
   );
 };

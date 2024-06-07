@@ -1,0 +1,42 @@
+.community-layout-container {
+  display: flex;
+}
+
+.community-frame {
+  width: 200px;
+  height: 300px;
+  padding: 30px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  border: 1px solid var(--main-color);
+  border-radius: 20px;
+  margin: 2rem 1rem;
+  padding-bottom: 50px;
+  position: sticky;
+  top: 120px;
+  right: 300px;
+}
+
+.community-game {
+  font-weight: 800;
+  margin-bottom: 2rem;
+}
+
+.community-list {
+  width: 200px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 5px;
+  border-bottom: 1px solid var(--main-color);
+  justify-content: center;
+
+  &:hover {
+    width: 200px;
+    color: white;
+    cursor: pointer;
+    background-color: var(--main-color);
+  }
+}

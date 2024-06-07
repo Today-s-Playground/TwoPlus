@@ -1,0 +1,77 @@
+.sign-up-layout {
+  /* 위드, 헤이트, 백 그라운드 컬러 바꿀 것 레이아웃은 바꿀 것 */
+  min-width: 400px;
+  height: 750px;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+}
+
+.sign-up-contain {
+  width: 500px;
+  height: auto;
+  border: 1px solid var(--main-color);
+  border-radius: 10px;
+  box-shadow: 2px 2px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin: 2vw auto;
+}
+
+.switch-to-login {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.signup-button {
+  padding: 9px;
+  margin: auto 10px;
+  align-items: center;
+  border: none;
+  border-radius: 5px;
+  background-color: var(--main-color);
+  color: white;
+  display: flex;
+  margin: 0 auto;
+
+  &:hover {
+    background-color: var(--hover-color);
+  }
+}
+
+.terms-contain {
+  border: 1px solid var(--main-color);
+  border-radius: 10px;
+  padding: 20px;
+  margin: 20px 0px;
+  max-height: 40px;
+  overflow-y: scroll;
+}
+
+.password-isnt-same {
+  color: red;
+}
+
+.social-account {
+  display: flex;
+  flex-basis: 100%;
+  align-items: center;
+  margin: 8px 0px;
+}
+
+.social-account::before,
+.social-account::after {
+  content: '';
+  flex-grow: 1;
+  margin: 0px 16px;
+  height: 1px;
+  background-color: var(--hover-color);
+}
+
+.githubLogo {
+  display: flex;
+  margin: 0 auto;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+}
