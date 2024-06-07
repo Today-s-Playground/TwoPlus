@@ -55,7 +55,6 @@ const ReviewDetail = () => {
             <StContent $detail={true}>{filteredData.content}</StContent>
             <StLine>
               <StExplanation>총 💬{commentData.length}개의 댓글이 달려 있어요!</StExplanation>
-              <p>(댓글 아이콘)</p>
             </StLine>
             <StCommentBox>
               <StForm onSubmit={onAddHandler}>
