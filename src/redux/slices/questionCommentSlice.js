@@ -2,14 +2,14 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import supabase from '../../shared/supabaseClient';
 
 export const fetchQuestionComment = createAsyncThunk('questionComment/fetchQuestionComment', async () => {
-  const { data, error } = await supabase.from('Question Comment').select('*').order('created_at', { ascending: false });
+  const { data, error } = await supabase.from('Question_Comment').select('*').order('created_at', { ascending: false });
   if (error) throw error;
   return data;
 });
 
 export const addQuestionComment = createAsyncThunk('questionComment/addQuestionComment', async (action) => {
   const { data, error } = await supabase
-    .from('Question Comment')
+    .from('Question_Comment')
     .insert({
       user_name: action.username,
       comment: action.comment
@@ -21,14 +21,14 @@ export const addQuestionComment = createAsyncThunk('questionComment/addQuestionC
 });
 
 export const deleteQuestionComment = createAsyncThunk('questionComment/deleteQuestionComment', async (action) => {
-  const { data, error } = await supabase.from('Question Comment').delete().eq('id', action.id).select('*');
+  const { data, error } = await supabase.from('Question_Comment').delete().eq('id', action.id).select('*');
   if (error) throw error;
   return data;
 });
 
 export const updateQuestionComment = createAsyncThunk('questionComment/updateQuestionComment', async (action) => {
   const { data, error } = await supabase
-    .from('Question Comment')
+    .from('Question_Comment')
     .update({ comment: action.content })
     .eq('id', action.id)
     .select('*')
