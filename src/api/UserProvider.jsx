@@ -1,6 +1,7 @@
 import React, { useState, useEffect, createContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import supabase from '../shared/supabaseClient';
+import Swal from 'sweetalert2';
 
 // Context 생성
 export const UserContext = createContext();
@@ -59,10 +60,18 @@ const UserProvider = ({ children }) => {
     });
 
     if (error) {
-      alert(`로그인 실패하였습니다. 아이디와 비밀번호를 확인해주세요.`);
+      Swal.fire({
+        title: 'Failed',
+        text: '로그인 실패하였습니다. 아이디와 비밀번호를 확인해주세요.',
+        icon: 'Failed'
+      });
     } else if (data) {
       const userName = await userDataUserName(); // 이 부분은 로그인 성공 후 실행됩니다.
-      alert(`${userName}님 Today's playground에 오신 걸 환영합니다!`);
+      Swal.fire({
+        title: 'Good job!',
+        text: `${userName}님 Today's playground에 오신 걸 환영합니다!`,
+        icon: 'success'
+      });
       navigate('/');
     }
   };
